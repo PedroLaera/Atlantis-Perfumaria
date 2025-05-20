@@ -69,10 +69,21 @@ function CardLogin() {
 
       <button
         type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded"
+        className="bg-blue-500 text-white px-4 py-2 rounded w-full"
       >
         Entrar
       </button>
+
+      {/* Link para registro */}
+      <p className="mt-4 text-center text-sm">
+        Não tem uma conta?{" "}
+        <span
+          className="text-blue-500 cursor-pointer hover:underline"
+          onClick={() => navigate("/register")}
+        >
+          Cadastre-se aqui
+        </span>
+      </p>
     </form>
   );
 }

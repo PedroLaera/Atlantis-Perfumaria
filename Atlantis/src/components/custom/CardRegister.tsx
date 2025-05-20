@@ -24,11 +24,9 @@ function CardRegister() {
     setSuccess("");
 
     try {
-      // Apenas cria o usuário — sem login
       await axios.post("http://localhost:3000/users", formData);
       setSuccess("Usuário criado com sucesso!");
 
-      // Redireciona, se desejar
       setTimeout(() => {
         navigate("/login");
       }, 2000);
@@ -90,10 +88,21 @@ function CardRegister() {
 
       <button
         type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded"
+        className="bg-blue-500 text-white px-4 py-2 rounded w-full"
       >
         Criar Conta
       </button>
+
+      {/* Link para login */}
+      <p className="mt-4 text-center text-sm">
+        Já tem uma conta?{" "}
+        <span
+          className="text-blue-500 cursor-pointer hover:underline"
+          onClick={() => navigate("/login")}
+        >
+          Faça login
+        </span>
+      </p>
     </form>
   );
 }
