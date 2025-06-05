@@ -14,16 +14,22 @@ services:
       - db_data:/var/lib/mysql
     networks:
       - app-network
-
+    healthcheck:
+      test: ["CMD", "mysqladmin","ping","-h","localhost"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
   backend:
     build: ./Project5
     container_name: backend
     env_file:
       - ./Project5/.env
     depends_on:
-      - database
+      database:
+        condition: service_healthy
     networks:
       - app-network
+    
 
   frontend:
     build: ./Front
