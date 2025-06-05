@@ -15,7 +15,7 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: ["CMD", "mysqladmin","ping","-h","localhost"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 5s
       timeout: 10s
       retries: 5
@@ -29,7 +29,6 @@ services:
         condition: service_healthy
     networks:
       - app-network
-    
 
   frontend:
     build: ./Front
