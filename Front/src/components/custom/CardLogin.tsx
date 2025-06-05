@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { api } from "../../services/api";
 
 function CardLogin() {
   const [formData, setFormData] = useState({
@@ -21,10 +22,7 @@ function CardLogin() {
     setError("");
 
     try {
-      const response = await axios.post(
-        "http://localhost:3000/login",
-        formData
-      );
+      const response = await api.post("/login", formData);
       const { token, id_user } = response.data;
 
       localStorage.setItem("token", token);

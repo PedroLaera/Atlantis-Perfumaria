@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import axios from "axios";
+import { api } from "../../services/api";
 
 interface UserType {
   id_user: string;
@@ -34,14 +34,11 @@ export default function CardEditUser() {
           return;
         }
 
-        const response = await axios.get(
-          `http://localhost:3000/users/${id_user}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await api.get(`/users/${id_user}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         const userData = response.data.user || response.data;
         setFormData({
@@ -84,7 +81,7 @@ export default function CardEditUser() {
         payload.password = password;
       }
 
-      await axios.put(`http://localhost:3000/users/${id_user}`, payload, {
+      await api.put(`/users/${id_user}`, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
