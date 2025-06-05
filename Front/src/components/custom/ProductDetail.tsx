@@ -26,21 +26,11 @@ export default function ProductDetailPage() {
         console.log("Produto encontrado:", response.data);
         setProduct(response.data);
         setError(null);
-      } catch (err: unknown) {
-        if (
-          err &&
-          typeof err === "object" &&
-          "response" in err &&
-          err.response &&
-          typeof err.response === "object" &&
-          "data" in err.response
-        ) {
-          console.error("Erro ao buscar produto:", err.response.data);
-        } else if (err instanceof Error) {
-          console.error("Erro ao buscar produto:", err.message);
-        } else {
-          console.error("Erro ao buscar produto:", err);
-        }
+      } catch (err: any) {
+        console.error(
+          "Erro ao buscar produto:",
+          err.response?.data || err.message
+        );
         setError("Produto não encontrado");
       }
     };
@@ -117,10 +107,14 @@ export default function ProductDetailPage() {
           Confirmar Compra
         </button>
 
-        <div className="mt-10 w-full">
-          <h3 className="text-xl font-bold mb-4 text-gray-800">Comentários</h3>
-          <CommentSection productId={product.id_product} />
-        </div>
+        {product && (
+          <div className="mt-10 w-full">
+            <h3 className="text-xl font-bold mb-4 text-gray-800">
+              Comentários
+            </h3>
+            <CommentSection productId={product.id_product} />
+          </div>
+        )}
       </div>
     </div>
   );

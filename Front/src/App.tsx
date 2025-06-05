@@ -15,6 +15,7 @@ import EditCategory from "./pages/EditCategory";
 import AddAndress from "./pages/AddAndress";
 import Checkout from "./pages/Checkout";
 import SupportPage from "./pages/Suport";
+import CardEditUser from "./pages/EditProfile";
 
 export function App() {
   return (
@@ -29,6 +30,7 @@ export function App() {
         <Route path="/createProduct" element={<CreateProduct />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/editProduct/:id" element={<EditProduct />} />
+        <Route path="/edituser" element={<CardEditUser />} />
         <Route path="/addAndress" element={<AddAndress />} />
         <Route path="/createCategory" element={<CreateCategory />} />
         <Route path="/editCategory/:id" element={<EditCategory />} />

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
+import { useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
 interface Comment {
@@ -23,11 +24,8 @@ interface DecodedToken {
   exp: number;
 }
 
-interface CommentSectionProps {
-  productId: number;
-}
-
-export default function CommentSection({ productId }: CommentSectionProps) {
+export default function CommentCard() {
+  const { id } = useParams<{ id: string }>();
   const [comments, setComments] = useState<Comment[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [content, setContent] = useState("");
@@ -43,7 +41,7 @@ export default function CommentSection({ productId }: CommentSectionProps) {
         headers: { Authorization: `Bearer ${token}` },
       });
       const allComments: Comment[] = response.data;
-      const filtered = allComments.filter((c) => c.id_product === productId);
+      const filtered = allComments.filter((c) => c.id_product === Number(id));
       setComments(filtered);
     } catch (error) {
       console.error("Erro ao buscar comentários:", error);
@@ -64,28 +62,36 @@ export default function CommentSection({ productId }: CommentSectionProps) {
   useEffect(() => {
     fetchComments();
     fetchUsers();
-  }, [productId]);
+  }, [id]);
 
   const handleSubmit = async () => {
     if (!content.trim()) return;
 
     try {
-      const data = {
-        id_user: decoded?.id_user,
-        id_product: productId,
-        content,
-        rating,
-        creation_date: new Date(),
-      };
-
       if (editId) {
-        await api.put(`/comment/${editId}`, data, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        await api.put(
+          `/comment/${editId}`,
+          {
+            id_user: decoded?.id_user,
+            id_product: id,
+            content,
+            rating,
+            creation_date: new Date(),
+          },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
       } else {
-        await api.post("/comment", data, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        await api.post(
+          "/comment",
+          {
+            id_user: decoded?.id_user,
+            id_product: id,
+            content,
+            rating,
+            creation_date: new Date(),
+          },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
       }
 
       setContent("");

@@ -35,11 +35,8 @@ function CardProfile() {
           }
         );
 
-        console.log("Resposta do backend:", response.data);
-
         const userData = response.data.user || response.data;
 
-        // Verifica se os dados possuem os campos esperados
         if (
           userData &&
           userData.name &&
@@ -63,7 +60,37 @@ function CardProfile() {
   }, []);
 
   if (loading) {
-    return <p className="text-center mt-8">Carregando perfil...</p>;
+    return (
+      <p className="text-center mt-8 animate-pulse">Carregando perfil...</p>
+    );
+  }
+
+  if (error === "Usuário não autenticado.") {
+    return (
+      <div
+        className="p-8 max-w-md w-full text-white font-montserrat! rounded-2xl shadow-lg! border border-white border-opacity-30"
+        style={{
+          backgroundColor: "rgba(15, 23, 42, 0.8)",
+          backdropFilter: "blur(8px)",
+        }}
+      >
+        <div className="text-center">
+          <div className="text-4xl mb-2">⚠️</div>
+          <h2 className="text-xl font-semibold text-gray-100 mb-2">
+            Você não está logado
+          </h2>
+          <p className="text-gray-300 mb-4">
+            Para acessar seu perfil, faça login primeiro.
+          </p>
+          <button
+            onClick={() => (window.location.href = "/login")}
+            className="bg-yellow-500 hover:bg-yellow-600 text-white px-5 py-1.5 rounded-full transition-all duration-500 ease-in-out transform active:scale-95"
+          >
+            Ir para o Login
+          </button>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
@@ -77,26 +104,41 @@ function CardProfile() {
   }
 
   return (
-    <div className="p-6 max-w-md mx-auto bg-white shadow rounded">
-      <img
-        src={user.profilePicture ? user.profilePicture : "/default-avatar.png"}
-        alt="Foto de Perfil"
-        className="w-24 h-24 rounded-full mx-auto mb-4 object-cover"
-      />
-      <h2 className="text-xl font-bold text-center">{user.name}</h2>
-      <p className="text-center text-gray-600">{user.email}</p>
-      <p className="text-center text-gray-500 mt-2">CPF: {user.CPF}</p>
+    <div
+      className="p-6 max-w-md mx-auto rounded-2xl border border-white shadow-xl animate-fade-in text-white"
+      style={{
+        backgroundColor: "rgba(15, 23, 42, 0.8)",
+        backdropFilter: "blur(8px)",
+      }}
+    >
+      <div className="flex flex-col items-center">
+        <img
+          src={
+            user.profilePicture ||
+            "https://randomuser.me/api/portraits/men/75.jpg"
+          }
+          alt="Foto de Perfil"
+          className="w-28 h-28 rounded-full mb-4 object-cover shadow-md ring-2 ring-blue-300"
+        />
+        <h2 className="text-2xl font-semibold">{user.name}</h2>
+        <p className="text-gray-300">{user.email}</p>
+        <p className="text-gray-400 mt-1">CPF: {user.CPF}</p>
+      </div>
 
-      <div className="flex justify-center mt-4 space-x-4">
-        <button className="bg-blue-500 text-white px-4 py-2 rounded">
+      <div className="flex justify-center mt-6 space-x-4">
+        <button
+          onClick={() => (window.location.href = "/edituser")}
+          className="bg-blue-600! hover:bg-blue-700! text-white border border-white! px-5 py-1.5 rounded-full transition-all duration-500! ease-in-out! transform active:scale-95 shadow-md hover:shadow-[0_0_12px_rgba(59,130,246,0.7)]"
+        >
           Editar
         </button>
+
         <button
           onClick={() => {
             localStorage.clear();
             window.location.href = "/login";
           }}
-          className="bg-red-500 text-white px-4 py-2 rounded"
+          className="bg-red-600! hover:bg-red-700! text-white border border-white! px-5 py-1.5 rounded-full transition-all duration-500! ease-in-out! transform active:scale-95 shadow-md hover:shadow-[0_0_12px_rgba(239,68,68,0.7)]"
         >
           Sair
         </button>

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="bg-transparent! text-white pt-12 w-full">
+    <footer className="bg-transparent0 text-white pt-12 w-full">
       <div className="max-w-[1440px] mx-auto w-full flex flex-col md:flex-row items-center justify-between px-6 gap-10">
         <div className="flex items-center gap-6">
           <a

@@ -8,7 +8,6 @@ import { toast } from "sonner";
 
 export default function CardRegisterAndress() {
   const [formData, setFormData] = useState({
-    ID_address: "",
     number: "",
     complement: "",
     neighborhood: "",
@@ -21,7 +20,6 @@ export default function CardRegisterAndress() {
   const [addressId, setAddressId] = useState<number | null>(null);
 
   const navigate = useNavigate();
-
   const id_user = localStorage.getItem("id_user");
   const token = localStorage.getItem("token");
 
@@ -43,7 +41,6 @@ export default function CardRegisterAndress() {
 
         if (userAddress) {
           setFormData({
-            ID_address: userAddress.ID_address || "",
             number: userAddress.number || "",
             complement: userAddress.complement || "",
             neighborhood: userAddress.neighborhood || "",
@@ -63,7 +60,7 @@ export default function CardRegisterAndress() {
     };
 
     fetchAddress();
-  }, []);
+  }, [id_user, token]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -71,40 +68,42 @@ export default function CardRegisterAndress() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (!id_user || !token) {
       toast.error("Usuário não autenticado.");
       return;
     }
 
     try {
+      const addressPayload = {
+        ...formData,
+        id_user: Number(id_user),
+      };
+
       if (isEditing && addressId !== null) {
-        await api.put(
-          `/address/${addressId}`,
-          { ...formData, id_user },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        await api.put(`/address/${addressId}`, addressPayload, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         toast.success("Endereço atualizado com sucesso!");
       } else {
-        await api.post(
-          "/address",
-          { ...formData, id_user },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        await api.post("/address", addressPayload, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         toast.success("Endereço criado com sucesso!");
       }
 
       navigate("/profile");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Erro ao salvar endereço:", error);
-      toast.error("Erro ao salvar endereço.");
+      if (error.response && error.response.data) {
+        toast.error(`Erro: ${JSON.stringify(error.response.data)}`);
+      } else {
+        toast.error("Erro ao salvar endereço.");
+      }
     }
   };
 
@@ -118,17 +117,11 @@ export default function CardRegisterAndress() {
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input
-            placeholder="Identificador do Endereço (ex: Casa, Trabalho)"
-            name="ID_address"
-            value={formData.ID_address}
-            onChange={handleChange}
-            required
-          />
-          <Input
             placeholder="Número"
             name="number"
             value={formData.number}
             onChange={handleChange}
+            required
           />
           <Input
             placeholder="Complemento"
@@ -141,24 +134,28 @@ export default function CardRegisterAndress() {
             name="neighborhood"
             value={formData.neighborhood}
             onChange={handleChange}
+            required
           />
           <Input
             placeholder="Cidade"
             name="city"
             value={formData.city}
             onChange={handleChange}
+            required
           />
           <Input
             placeholder="Estado"
             name="state"
             value={formData.state}
             onChange={handleChange}
+            required
           />
           <Input
             placeholder="CEP"
             name="zipCode"
             value={formData.zipCode}
             onChange={handleChange}
+            required
           />
           <div className="text-center mt-4">
             <Button

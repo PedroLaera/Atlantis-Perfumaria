@@ -1,23 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { api } from "../../services/api";
 
+interface Category {
+  ID_category: number;
+  name: string;
+}
+
 export default function RegisterCard() {
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     description: "",
     price: "",
     stock: "",
-    ID_category: "",
+    ID_category: "", // guardará o ID da categoria selecionada
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  const [categories, setCategories] = useState<Category[]>([]);
 
+  // Buscar categorias do backend ao montar o componente
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await api.get("/categories");
+        setCategories(response.data);
+      } catch (error) {
+        console.error("Erro ao carregar categorias", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
@@ -43,10 +66,8 @@ export default function RegisterCard() {
       ...formData,
       price: Number(formData.price),
       stock: Number(formData.stock),
-      ID_category: Number(formData.ID_category),
+      ID_category: Number(formData.ID_category), // enviar só o ID numérico
     };
-
-    console.log("Enviando payload:", payload);
 
     try {
       const response = await api.post("/products", payload, {
@@ -55,7 +76,7 @@ export default function RegisterCard() {
         },
       });
 
-      console.log("Produto cadastrado com sucesso!", response.data);
+      alert("Produto cadastrado com sucesso!");
       navigate("/addproduct");
     } catch (error) {
       const errorMessage =
@@ -64,7 +85,7 @@ export default function RegisterCard() {
             ?.data?.error) ||
         "Erro ao cadastrar o produto";
       alert(errorMessage);
-      console.error("Preencha com informações válidas:", errorMessage);
+      console.error("Erro ao cadastrar produto:", errorMessage);
     }
   };
 
@@ -114,17 +135,26 @@ export default function RegisterCard() {
             required
           />
           <label>Escolha a categoria:</label>
-          <Input
-            type="number"
+          <select
             name="ID_category"
-            placeholder="ID da Categoria"
             value={formData.ID_category}
             onChange={handleChange}
             required
-          />
+            className="w-full border rounded px-2 py-1"
+          >
+            <option value="" disabled>
+              Selecione a categoria
+            </option>
+            {categories.map((cat) => (
+              <option key={cat.ID_category} value={cat.ID_category}>
+                {cat.ID_category} - {cat.name}
+              </option>
+            ))}
+          </select>
+
           <Button
             onClick={CreateProducts}
-            className="w-full bg-white text-white hover:bg-gray-200 "
+            className="w-full bg-blue-600 text-white hover:bg-blue-700"
           >
             Cadastrar
           </Button>
