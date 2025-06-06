@@ -33,10 +33,10 @@ export default function CardEditProduct() {
 
       try {
         const [prodRes, catRes] = await Promise.all([
-          api.get(`http://localhost:3000/products/${id}`, {
+          api.get(`/products/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          api.get("http://localhost:3000/Category", {
+          api.get("/category", {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);

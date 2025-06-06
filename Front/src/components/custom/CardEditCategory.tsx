@@ -23,7 +23,7 @@ export default function CardEditCategory() {
       }
 
       try {
-        const response = await api.get(`http://localhost:3000/Category/${id}`, {
+        const response = await api.get(`/category/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -57,7 +57,7 @@ export default function CardEditCategory() {
 
     try {
       await api.put(
-        `http://localhost:3000/Category/${id}`,
+        `/category/${id}`,
         { name: formData.name },
         {
           headers: {

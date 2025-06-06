@@ -28,7 +28,7 @@ export default function CardEditUser() {
         }
 
         const response = await api.get(
-          `http://localhost:3000/users/${id_user}`,
+          `/users/${id_user}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -77,7 +77,7 @@ export default function CardEditUser() {
         payload.password = password;
       }
 
-      await api.put(`http://localhost:3000/users/${id_user}`, payload, {
+      await api.put(`/users/${id_user}`, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

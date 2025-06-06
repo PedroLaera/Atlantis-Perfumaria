@@ -27,7 +27,7 @@ function CardProfile() {
         }
 
         const response = await api.get(
-          `http://localhost:3000/users/${id_user}`,
+          `/users/${id_user}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -74,7 +74,7 @@ function CardProfile() {
         return;
       }
 
-      await api.delete(`http://localhost:3000/users/${id_user}`, {
+      await api.delete(`/users/${id_user}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

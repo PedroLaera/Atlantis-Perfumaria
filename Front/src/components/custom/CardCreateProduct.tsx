@@ -35,7 +35,7 @@ export default function CardCreateProduct() {
       }
 
       try {
-        const response = await api.get("http://localhost:3000/Category", {
+        const response = await api.get("/category", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -85,7 +85,7 @@ export default function CardCreateProduct() {
     };
 
     try {
-      await api.post("http://localhost:3000/products", payload, {
+      await api.post("/products", payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
