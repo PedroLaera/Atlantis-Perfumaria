@@ -39,7 +39,7 @@ export default function ProductDetailPage() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await api.get(`/Products/${id}`);
+        const response = await api.get(`/products/${id}`);
         console.log("Produto encontrado:", response.data);
         setProduct(response.data);
         setError(null);
