@@ -50,12 +50,9 @@ function CardLogin() {
         backdropFilter: "blur(8px)",
       }}
     >
-      <h2 className="text-3xl font-light mb-2 text-center text-slate-100">
-        Faça já o seu login
+      <h2 className="text-2xl font-light mb-6 text-center text-slate-100">
+        Bem-vindo de volta
       </h2>
-      <h3 className="text-1xl font-light mb-6 text-center text-slate-400">
-        Começe já sua experiência com ATLANTIS
-      </h3>
 
       <input
         type="email"
@@ -89,12 +86,12 @@ function CardLogin() {
       </button>
 
       <p className="mt-6 text-center text-sm text-slate-300">
-        Ainda não tenho conta,{" "}
+        Ainda não tem conta?{" "}
         <span
-          className="text-blue-500 hover:underline cursor-pointer"
+          className="text-green-400 hover:underline cursor-pointer"
           onClick={() => navigate("/register")}
         >
-          criar conta
+          Criar conta
         </span>
       </p>
     </motion.form>
