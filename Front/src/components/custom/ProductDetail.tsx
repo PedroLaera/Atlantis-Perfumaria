@@ -1,7 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
-import CommentSection from "./CommentSection";
 
 interface Product {
   id_product: number;
@@ -9,6 +8,24 @@ interface Product {
   description: string;
   price: number;
   stock: number;
+}
+
+interface CommentSectionProps {
+  productId: number;
+}
+
+interface CommentSectionProps {
+  productId: number;
+}
+
+export function CommentSection({ productId }: CommentSectionProps) {
+  // agora você pode usar productId normalmente
+  return (
+    <div>
+      {/* exemplo de uso */}
+      <p>ID do produto: {productId}</p>
+    </div>
+  );
 }
 
 export default function ProductDetailPage() {
@@ -26,11 +43,21 @@ export default function ProductDetailPage() {
         console.log("Produto encontrado:", response.data);
         setProduct(response.data);
         setError(null);
-      } catch (err: any) {
-        console.error(
-          "Erro ao buscar produto:",
-          err.response?.data || err.message
-        );
+      } catch (err: unknown) {
+        if (
+          err &&
+          typeof err === "object" &&
+          "response" in err &&
+          err.response &&
+          typeof err.response === "object" &&
+          "data" in err.response
+        ) {
+          console.error("Erro ao buscar produto:", err.response.data);
+        } else if (err instanceof Error) {
+          console.error("Erro ao buscar produto:", err.message);
+        } else {
+          console.error("Erro ao buscar produto:", err);
+        }
         setError("Produto não encontrado");
       }
     };

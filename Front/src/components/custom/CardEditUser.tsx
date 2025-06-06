@@ -5,13 +5,6 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { api } from "../../services/api";
 
-interface UserType {
-  id_user: string;
-  name: string;
-  email: string;
-  CPF: string;
-}
-
 export default function CardEditUser() {
   const navigate = useNavigate();
 
@@ -34,11 +27,14 @@ export default function CardEditUser() {
           return;
         }
 
-        const response = await api.get(`/users/${id_user}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await api.get(
+          `http://localhost:3000/users/${id_user}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         const userData = response.data.user || response.data;
         setFormData({
@@ -81,7 +77,7 @@ export default function CardEditUser() {
         payload.password = password;
       }
 
-      await api.put(`/users/${id_user}`, payload, {
+      await api.put(`http://localhost:3000/users/${id_user}`, payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

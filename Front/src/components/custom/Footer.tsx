@@ -1,89 +1,122 @@
-import { Separator } from "../ui/separator";
-import { Button } from "../ui/button";
-import { Instagram, Facebook, Github, PhoneCall } from "lucide-react";
-import { Link } from "react-router-dom";
+import {
+  BsFacebook,
+  BsInstagram,
+  BsTwitter,
+  BsGithub,
+  BsDribbble,
+} from "react-icons/bs";
 
-export default function Footer() {
+const Footer = () => {
   return (
-    <footer className="bg-transparent0 text-white pt-12 w-full">
-      <div className="max-w-[1440px] mx-auto w-full flex flex-col md:flex-row items-center justify-between px-6 gap-10">
-        <div className="flex items-center gap-6">
-          <a
-            href="https://wa.me/123456789"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <PhoneCall className="w-6 h-6 text-white hover:text-green-400 transition-colors duration-300" />
-          </a>
-          <a
-            href="https://www.instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Instagram className="w-6 h-6 text-white hover:text-pink-400 transition-colors duration-300" />
-          </a>
-          <a
-            href="https://www.facebook.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Facebook className="w-6 h-6 text-white hover:text-blue-400 transition-colors duration-300" />
-          </a>
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Github className="w-6 h-6 text-white hover:text-gray-400 transition-colors duration-300" />
-          </a>
+    <footer className="bg-gray-900 text-white px-6 py-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Top part: logo + social icons */}
+        <div className="flex flex-col sm:flex-row justify-between items-center mb-8">
+          <div className="flex items-center space-x-3 mb-4 sm:mb-0">
+            <img src="../assets/logo.png" alt="Logo" className="h-8" />
+            <span className="font-semibold text-xl">Atlantis</span>
+          </div>
+          <div className="flex space-x-6 text-xl">
+            <a
+              href="#"
+              aria-label="Facebook"
+              className="hover:text-blue-500 transition-colors"
+            >
+              <BsFacebook />
+            </a>
+            <a
+              href="#"
+              aria-label="Instagram"
+              className="hover:text-pink-500 transition-colors"
+            >
+              <BsInstagram />
+            </a>
+            <a
+              href="#"
+              aria-label="Twitter"
+              className="hover:text-blue-400 transition-colors"
+            >
+              <BsTwitter />
+            </a>
+            <a
+              href="#"
+              aria-label="GitHub"
+              className="hover:text-gray-400 transition-colors"
+            >
+              <BsGithub />
+            </a>
+            <a
+              href="#"
+              aria-label="Dribbble"
+              className="hover:text-yellow-400 transition-colors"
+            >
+              <BsDribbble />
+            </a>
+          </div>
         </div>
 
-        {/* Separador vertical */}
-        <Separator
-          orientation="vertical"
-          className="hidden md:block h-20 bg-gray-600"
-        />
-
-        {/* Logo */}
-        <div className="flex justify-center items-center">
-          <img src="/assets/logo.png" alt="Logo" className="h-16" />
+        {/* Links sections */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 text-sm text-gray-300">
+          <div>
+            <h3 className="mb-4 font-semibold text-white!">Sobre</h3>
+            <ul className="space-y-2">
+              <li>
+                <a href="#" className="text-white! hover:underline">
+                  Nossa Loja
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-white! hover:underline">
+                  Tailwind CSS
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="mb-4 font-semibold text-white!">Siga-nos</h3>
+            <ul className="space-y-2">
+              <li>
+                <a href="#" className="text-white! hover:underline">
+                  GitHub
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-white! hover:underline">
+                  Discord
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="mb-4 font-semibold text-white!">Legal</h3>
+            <ul className="space-y-2">
+              <li>
+                <a href="#" className="text-white! hover:underline">
+                  Política de Privacidade
+                </a>
+              </li>
+              <li>
+                <a href="#" className="text-white! hover:underline">
+                  Termos & Condições
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        {/* Navegação */}
-        <div className="flex flex-col md:items-end gap-2">
-          <Link to="/">
-            <Button
-              variant="link"
-              className="text-white hover:text-blue-400 transition-colors"
-            >
-              Home
-            </Button>
-          </Link>
-          <Link to="/login">
-            <Button
-              variant="link"
-              className="text-white hover:text-blue-400 transition-colors"
-            >
-              Login
-            </Button>
-          </Link>
-          <Link to="/suporte">
-            <Button
-              variant="link"
-              className="text-white hover:text-blue-400 transition-colors"
-            >
-              Suporte
-            </Button>
-          </Link>
-        </div>
-      </div>
+        <hr className="my-8 border-gray-700" />
 
-      {/* Rodapé inferior */}
-      <div className="w-full bg-zinc-800 py-4 mt-10">
-        <p className="text-center text-sm text-gray-400">
-          © 2025 Atlantis. Todos os direitos reservados.
-        </p>
+        {/* Bottom copyright */}
+        <div className="text-center text-gray-500 text-sm">
+          © 2025{" "}
+          <a href="#" className="text-gray-500! hover:underline ">
+            Atlantis™
+          </a>
+          . Todos os direitos reservados.
+        </div>
       </div>
     </footer>
   );
-}
+};
+
+export default Footer;

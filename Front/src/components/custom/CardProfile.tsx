@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { api } from "../../services/api";
 
 interface UserType {
   id_user: string;
@@ -26,7 +26,7 @@ function CardProfile() {
           return;
         }
 
-        const response = await axios.get(
+        const response = await api.get(
           `http://localhost:3000/users/${id_user}`,
           {
             headers: {
@@ -58,6 +58,36 @@ function CardProfile() {
 
     fetchUser();
   }, []);
+
+  const handleDeleteAccount = async () => {
+    const confirmed = window.confirm(
+      "Tem certeza que deseja apagar sua conta? Esta ação é irreversível."
+    );
+    if (!confirmed) return;
+
+    try {
+      const token = localStorage.getItem("token");
+      const id_user = localStorage.getItem("id_user");
+
+      if (!token || !id_user) {
+        alert("Usuário não autenticado.");
+        return;
+      }
+
+      await api.delete(`http://localhost:3000/users/${id_user}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      localStorage.clear();
+      alert("Conta apagada com sucesso.");
+      window.location.href = "/login";
+    } catch (error) {
+      console.error("Erro ao apagar conta:", error);
+      alert("Erro ao apagar conta. Tente novamente.");
+    }
+  };
 
   if (loading) {
     return (
@@ -125,10 +155,10 @@ function CardProfile() {
         <p className="text-gray-400 mt-1">CPF: {user.CPF}</p>
       </div>
 
-      <div className="flex justify-center mt-6 space-x-4">
+      <div className="flex justify-center mt-6 space-x-4 flex-wrap gap-2">
         <button
           onClick={() => (window.location.href = "/edituser")}
-          className="bg-blue-600! hover:bg-blue-700! text-white border border-white! px-5 py-1.5 rounded-full transition-all duration-500! ease-in-out! transform active:scale-95 shadow-md hover:shadow-[0_0_12px_rgba(59,130,246,0.7)]"
+          className="bg-blue-900! hover:bg-blue-700! text-white border border-white px-5 py-1.5 rounded-full transition-all duration-500 ease-in-out transform active:scale-95 shadow-md hover:shadow-[0_0_12px_rgba(59,130,246,0.7)]"
         >
           Editar
         </button>
@@ -138,9 +168,16 @@ function CardProfile() {
             localStorage.clear();
             window.location.href = "/login";
           }}
-          className="bg-red-600! hover:bg-red-700! text-white border border-white! px-5 py-1.5 rounded-full transition-all duration-500! ease-in-out! transform active:scale-95 shadow-md hover:shadow-[0_0_12px_rgba(239,68,68,0.7)]"
+          className="bg-red-900! hover:bg-red-700! text-white border border-white px-5 py-1.5 rounded-full transition-all duration-500 ease-in-out transform active:scale-95 shadow-md hover:shadow-[0_0_12px_rgba(239,68,68,0.7)]"
         >
           Sair
+        </button>
+
+        <button
+          onClick={handleDeleteAccount}
+          className="bg-gray-700! hover:bg-gray-600! text-white border border-white px-5 py-1.5 rounded-full transition-all duration-500 ease-in-out transform active:scale-95 shadow-md hover:shadow-[0_0_12px_rgba(100,116,139,0.7)]"
+        >
+          Apagar Conta
         </button>
       </div>
     </div>

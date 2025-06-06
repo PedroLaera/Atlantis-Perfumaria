@@ -34,9 +34,20 @@ export default function CardRegisterAndress() {
           },
         });
 
-        const allAddresses = response.data;
+        interface Address {
+          id_user: number;
+          number: string;
+          complement?: string;
+          neighborhood: string;
+          city: string;
+          state: string;
+          zipCode: string;
+          ID_address: number;
+        }
+
+        const allAddresses: Address[] = response.data;
         const userAddress = allAddresses.find(
-          (addr: any) => addr.id_user === Number(id_user)
+          (addr: Address) => addr.id_user === Number(id_user)
         );
 
         if (userAddress) {
@@ -97,10 +108,21 @@ export default function CardRegisterAndress() {
       }
 
       navigate("/profile");
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Erro ao salvar endereço:", error);
-      if (error.response && error.response.data) {
-        toast.error(`Erro: ${JSON.stringify(error.response.data)}`);
+      if (
+        typeof error === "object" &&
+        error !== null &&
+        "response" in error &&
+        typeof (error as { response?: unknown }).response === "object" &&
+        (error as { response?: { data?: unknown } }).response !== null &&
+        "data" in (error as { response?: { data?: unknown } }).response!
+      ) {
+        toast.error(
+          `Erro: ${JSON.stringify(
+            (error as { response: { data: unknown } }).response.data
+          )}`
+        );
       } else {
         toast.error("Erro ao salvar endereço.");
       }

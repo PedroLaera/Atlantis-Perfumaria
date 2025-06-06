@@ -1,11 +1,10 @@
-// components/custom/CardEditCategory.tsx
-
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { api } from "../../services/api";
+import { motion } from "framer-motion";
 
 export default function CardEditCategory() {
   const navigate = useNavigate();
@@ -13,23 +12,24 @@ export default function CardEditCategory() {
 
   const [formData, setFormData] = useState({
     name: "",
-    description: "",
   });
 
   useEffect(() => {
     const fetchCategory = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          alert("Usuário não autenticado.");
-          return;
-        }
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Usuário não autenticado.");
+        return;
+      }
 
-        const response = await api.get(`/category/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
+      try {
+        const response = await api.get(`http://localhost:3000/Category/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
 
-        setFormData(response.data);
+        setFormData({ name: response.data.name });
       } catch (error) {
         console.error("Erro ao buscar categoria:", error);
         alert("Erro ao carregar categoria.");
@@ -40,13 +40,12 @@ export default function CardEditCategory() {
   }, [id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData({ name: e.target.value });
   };
 
   const updateCategory = async () => {
-    if (!formData.name || !formData.description) {
-      alert("Preencha todos os campos obrigatórios!");
+    if (!formData.name || formData.name.trim() === "") {
+      alert("Digite um nome de categoria válido!");
       return;
     }
 
@@ -57,13 +56,17 @@ export default function CardEditCategory() {
     }
 
     try {
-      const response = await api.put(`/category/${id}`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await api.put(
+        `http://localhost:3000/Category/${id}`,
+        { name: formData.name },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-      console.log("Categoria atualizada com sucesso!", response.data);
+      alert("Categoria atualizada com sucesso!");
       navigate("/addproduct");
     } catch (error) {
       const errorMessage =
@@ -77,40 +80,70 @@ export default function CardEditCategory() {
   };
 
   return (
-    <Card className="w-full max-w-md mx-auto p-6 shadow-lg font-thin bg-gradient-to-b from-zinc-400 via-zinc-600 to-zinc-900 p-4">
-      <CardHeader>
-        <CardTitle className="text-3xl font-thin text-blue-600 text-center">
-          Editar Categoria
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          <label>Nome da categoria:</label>
-          <Input
-            type="text"
-            name="name"
-            placeholder="Nome"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-          <label>Descrição da categoria:</label>
-          <Input
-            type="text"
-            name="description"
-            placeholder="Descrição"
-            value={formData.description}
-            onChange={handleChange}
-            required
-          />
-          <Button
-            onClick={updateCategory}
-            className="w-full bg-white text-black hover:bg-gray-200"
-          >
-            Salvar Alterações
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+    <div
+      className="w-full min-h-screen flex items-center justify-center p-4"
+      style={{
+        backgroundImage: `
+          radial-gradient(at 20% 30%, #1e3a8a 0%, transparent 40%),
+          radial-gradient(at 80% 20%, #4c1d95 0%, transparent 50%),
+          radial-gradient(at 50% 100%,rgb(16, 103, 185) 0%, transparent 70%),
+          radial-gradient(at 70% 70%, #1e40af 0%, transparent 40%),
+          linear-gradient(135deg, #0f172a 0%, #0c0c1c 100%)
+        `,
+        backgroundColor: "#0f172a",
+        backgroundBlendMode: "screen",
+      }}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 100 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
+        <Card className="w-full max-w-md px-10 py-8 bg-transparent border border-white/30 rounded-xl text-white shadow-xl font-thin backdrop-blur-sm">
+          <CardHeader>
+            <CardTitle className="text-3xl font-thin text-center mb-6 text-white">
+              Editar Categoria
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-col gap-4">
+              <label htmlFor="name" className="text-white/90 font-thin">
+                Nome da categoria:
+              </label>
+              <Input
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Digite o nome"
+                value={formData.name}
+                onChange={handleChange}
+                className="text-black px-4 py-2 rounded-md"
+                style={{ height: "38px" }}
+                required
+              />
+
+              <Button
+                onClick={updateCategory}
+                className="mt-4 w-full py-3 text-lg font-semibold rounded-md text-white border-white/50! transition-all duration-200"
+                style={{
+                  background:
+                    "linear-gradient(90deg, #7b3fe4, #3b82f6, #1e40af, #06b6d4)",
+                  boxShadow: "0 4px 12px rgba(59, 130, 246, 0.6)",
+                }}
+                onMouseEnter={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.filter =
+                    "brightness(1.1)";
+                }}
+                onMouseLeave={(e) => {
+                  (e.currentTarget as HTMLButtonElement).style.filter = "none";
+                }}
+              >
+                Salvar Alterações
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </motion.div>
+    </div>
   );
 }

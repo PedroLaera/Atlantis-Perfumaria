@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { api } from "../../services/api";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
@@ -25,18 +25,18 @@ function CardRegister() {
     setSuccess("");
 
     try {
-      await axios.post("http://localhost:3000/users", formData);
+      await api.post("http://localhost:3000/users", formData);
       setSuccess("Usuário criado com sucesso!");
 
       setTimeout(() => {
         navigate("/login");
       }, 2000);
     } catch (err: unknown) {
-      let message = "Erro ao criar o usuário.";
-      if (axios.isAxiosError(err) && err.response?.data?.error) {
-        message = err.response.data.error;
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Erro ao criar usuário. Tente novamente.");
       }
-      setError(message);
     }
   };
 
@@ -48,7 +48,7 @@ function CardRegister() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="p-8 max-w-md w-full text-white font-montserrat rounded-2xl shadow-lg border border-white border-opacity-30"
       style={{
-        backgroundColor: "rgba(15, 23, 42, 0.8)", // slate-900 com opacidade
+        backgroundColor: "rgba(15, 23, 42, 0.8)",
         backdropFilter: "blur(8px)",
       }}
     >
