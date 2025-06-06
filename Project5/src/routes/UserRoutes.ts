@@ -12,7 +12,6 @@ import { authMiddleware } from '../middleware/authMiddleware'
 const router = express.Router();
 
 router.post("/users", CreateUser);
-
 router.get("/users/list", authMiddleware, listUsers);
 router.get("/users", authMiddleware, getAll);
 router.get("/users/:id", authMiddleware, getUserById);

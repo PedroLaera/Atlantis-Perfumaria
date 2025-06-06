@@ -25,7 +25,7 @@ function CardRegister() {
     setSuccess("");
 
     try {
-      await api.post("http://localhost:3000/users", formData);
+      await api.post("/users", formData);
       setSuccess("Usuário criado com sucesso!");
 
       setTimeout(() => {

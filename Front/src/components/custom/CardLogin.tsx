@@ -28,7 +28,7 @@ function CardLogin() {
       localStorage.setItem("token", token);
       localStorage.setItem("id_user", id_user);
 
-      navigate("/");
+      navigate("/profile");
     } catch (err: unknown) {
       let message = "Erro ao fazer login.";
       if (axios.isAxiosError(err) && err.response?.data?.error) {
