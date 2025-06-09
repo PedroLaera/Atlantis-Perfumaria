@@ -158,7 +158,7 @@ function CardProfile() {
       <div className="flex justify-center mt-6 space-x-4 flex-wrap gap-2">
         <button
           onClick={() => (window.location.href = "/edituser")}
-          className="bg-blue-900! hover:bg-blue-700! text-white border border-white px-5 py-1.5 rounded-full transition-all duration-500 ease-in-out transform active:scale-95 shadow-md hover:shadow-[0_0_12px_rgba(59,130,246,0.7)]"
+          id="1" className=" bg-blue-900! hover:bg-blue-700! text-white border border-white px-5 py-1.5 rounded-full transition-all duration-500 ease-in-out transform active:scale-95 shadow-md hover:shadow-[0_0_12px_rgba(59,130,246,0.7)]"
         >
           Editar
         </button>
@@ -168,14 +168,14 @@ function CardProfile() {
             localStorage.clear();
             window.location.href = "/login";
           }}
-          className="bg-red-900! hover:bg-red-700! text-white border border-white px-5 py-1.5 rounded-full transition-all duration-500 ease-in-out transform active:scale-95 shadow-md hover:shadow-[0_0_12px_rgba(239,68,68,0.7)]"
+          id="2" className=" bg-red-900! hover:bg-red-700! text-white border border-white px-5 py-1.5 rounded-full transition-all duration-500 ease-in-out transform active:scale-95 shadow-md hover:shadow-[0_0_12px_rgba(239,68,68,0.7)]"
         >
           Sair
         </button>
 
         <button
           onClick={handleDeleteAccount}
-          className="bg-gray-700! hover:bg-gray-600! text-white border border-white px-5 py-1.5 rounded-full transition-all duration-500 ease-in-out transform active:scale-95 shadow-md hover:shadow-[0_0_12px_rgba(100,116,139,0.7)]"
+          id="3" data-testid="botao-Excluir-Perfil" className="bg-gray-700! hover:bg-gray-600! text-white border border-white px-5 py-1.5 rounded-full transition-all duration-500 ease-in-out transform active:scale-95 shadow-md hover:shadow-[0_0_12px_rgba(100,116,139,0.7)]"
         >
           Apagar Conta
         </button>
