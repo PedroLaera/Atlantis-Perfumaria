@@ -1,4 +1,4 @@
-/*import { test, expect } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 
 test('Crud Produto', async ({ page }) => {
   await page.goto('localhost/login'); 
@@ -9,7 +9,8 @@ test('Crud Produto', async ({ page }) => {
 
   await page.getByRole('button', { name: /entrar/i }).click(); 
 
+  await page.
 
-});*/
+});
 
 
