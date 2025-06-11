@@ -1,12 +1,11 @@
 import { test, expect } from '@playwright/test';
 
 // --- Dados do Usuário em Constantes ---
-const NOME_USUARIO = 'ivan vanco21';
-const EMAIL_USUARIO = 'ivanvanco21@hotmail.com';
+const NOME_USUARIO = 'ivan vanco24';
+const EMAIL_USUARIO = 'ivanvanco24@hotmail.com';
 const SENHA_USUARIO = '12345678@';
-const CPF_USUARIO = '324.826.240-02';
+const CPF_USUARIO = '204.100.840-77';
 
-// Agrupando os testes relacionados em um "describe"
 test.describe.serial('CRUD de Usuário', () => {
 
   // Teste 1: Focado apenas no registro
@@ -38,18 +37,23 @@ test.describe.serial('CRUD de Usuário', () => {
 
   // Teste 3: Focado apenas na exclusão (com seu próprio setup de login)
   test('deve apagar a conta após confirmação e alerta de sucesso', async ({ page }) => {
-    await page.goto('http://localhost/login');
+    await page.goto('http://localhost/login'); 
+
     await page.locator('input[name="email"]').fill(EMAIL_USUARIO);
     await page.locator('input[name="password"]').fill(SENHA_USUARIO);
     await page.getByRole('button', { name: /entrar/i }).click();
-  
-    // Melhora 1: Espera explícita pela navegação para o perfil, em vez de forçá-la.
-    await expect(page).toHaveURL('http://localhost/profile');
-  
-      page.getByTestId('botao-Excluir-Perfil').click() // Executa o clique que o dispara.
 
-    await page.waitForTimeout(300);
+    await expect(page).toHaveURL('http://localhost/profile'); 
+
+    await page.goto('http://localhost/profile');
+    await page.waitForTimeout(3000);
+    page.getByTestId('botao-Excluir-Perfil').click()
     
-    await expect(page).toHaveURL('http://localhost/login');
+    await expect(page).toHaveURL('http://localhost/login')
+    await page.goto('http://localhost/login');
+    await page.waitForTimeout(3000);
+    await page.locator('input[name="email"]').fill(EMAIL_USUARIO);
+    await page.locator('input[name="password"]').fill(SENHA_USUARIO);
+    await page.getByRole('button', { name: /entrar/i }).click();
   });
 });
