@@ -142,9 +142,7 @@ export default function Sidebar({ children }: SidebarProps) {
               >
                 <ListCollapse size={20} />
                 {!isSidebarCollapsed && (
-                  <span className="whitespace-nowrap">
-                    Visualizar Produtos e Categorias
-                  </span>
+                  <span className="whitespace-nowrap">Visualizar</span>
                 )}
               </Link>
             </li>
