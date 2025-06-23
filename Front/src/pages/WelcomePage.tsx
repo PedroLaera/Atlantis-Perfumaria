@@ -1,6 +1,7 @@
 import { Button } from "../components/ui/button";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import img8 from "/assets/img8.jpg";
 
 export default function WelcomePage() {
   const navigate = useNavigate();
@@ -30,16 +31,25 @@ export default function WelcomePage() {
       {/* Conteúdo principal */}
       <div className="relative z-10 w-full max-w-full h-full bg-black/50 backdrop-blur-sm border border-blue-800 rounded-2xl shadow-xl overflow-hidden flex">
         {/* Imagem do lado esquerdo */}
-        <div className="w-1/2 h-full">
+        <div className="w-2/3 h-full relative">
           <img
-            src="https://i.pravatar.cc/400?img=12"
+            src={img8}
             alt="Foto de perfil"
             className="w-full h-full object-cover"
+          />
+
+          {/* Degradê mais forte da imagem para o texto */}
+          <div
+            className="absolute top-0 right-0 h-full w-32"
+            style={{
+              background:
+                "linear-gradient(to right, rgba(0,0,0,0) 0%, rgba(4, 1, 21, 0.95) 100%)",
+            }}
           />
         </div>
 
         {/* Texto e botão do lado direito */}
-        <div className="w-1/2 flex flex-col justify-center items-start px-12 h-full">
+        <div className="w-1/3 flex flex-col justify-center items-start px-12 h-full">
           <motion.h1
             className="text-4xl font-light text-blue-200 mb-4"
             initial={{ opacity: 0, x: 50 }}
@@ -48,6 +58,7 @@ export default function WelcomePage() {
           >
             Bem-vindo(a) à Atlantis!
           </motion.h1>
+
           <motion.p
             className="text-blue-300 text-lg mb-8"
             initial={{ opacity: 0, x: 50 }}
@@ -56,6 +67,7 @@ export default function WelcomePage() {
           >
             Aqui você encontra fragrâncias únicas e experiências incríveis.
           </motion.p>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

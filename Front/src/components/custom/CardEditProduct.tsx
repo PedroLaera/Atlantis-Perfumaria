@@ -128,11 +128,17 @@ export default function CardEditProduct() {
     }
   };
 
-  if (loading) return <p className="text-white">Carregando...</p>;
+  if (loading)
+    return (
+      <p className="text-white" id="loading-message-edit-product">
+        Carregando...
+      </p>
+    );
 
   return (
     <div
       className="w-full min-h-screen flex items-center justify-center p-4"
+      id="edit-product-page-container"
       style={{
         backgroundImage: `
           radial-gradient(at 20% 30%, #1e3a8a 0%, transparent 40%),
@@ -149,62 +155,113 @@ export default function CardEditProduct() {
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
+        id="edit-product-motion-container"
       >
-        <Card className="w-full max-w-4xl p-8 border border-white/30 bg-transparent text-white rounded-xl backdrop-blur-sm font-thin">
-          <CardHeader>
-            <CardTitle className="text-3xl text-center">
+        <Card
+          className="w-full max-w-4xl p-8 border border-white/30 text-white rounded-xl backdrop-blur-sm font-thin"
+          id="edit-product-card"
+          style={{
+            backgroundColor: "rgba(20, 30, 80, 0.7)", // Azul escuro transparente
+          }}
+        >
+          <CardHeader id="card-header-edit-product">
+            <CardTitle
+              className="text-3xl text-center"
+              id="card-title-edit-product"
+            >
               Editar Produto
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent id="card-content-edit-product">
             <div className="flex flex-col gap-4">
-              <label className="text-white/90">Nome:</label>
+              <label
+                htmlFor="input-edit-product-name"
+                className="text-white/90"
+              >
+                Nome:
+              </label>
               <Input
                 name="name"
+                id="input-edit-product-name"
                 value={formData.name}
                 onChange={handleChange}
                 className="text-black bg-white rounded-md"
               />
 
-              <label className="text-white/90">Descrição:</label>
+              <label
+                htmlFor="input-edit-product-description"
+                className="text-white/90"
+              >
+                Descrição:
+              </label>
               <Input
                 name="description"
+                id="input-edit-product-description"
                 value={formData.description}
                 onChange={handleChange}
                 className="text-black bg-white rounded-md"
               />
 
-              <label className="text-white/90">Preço:</label>
+              <label
+                htmlFor="input-edit-product-price"
+                className="text-white/90"
+              >
+                Preço:
+              </label>
               <Input
                 type="number"
                 name="price"
+                id="input-edit-product-price"
                 value={formData.price}
                 onChange={handleChange}
                 className="text-black bg-white rounded-md"
               />
 
-              <label className="text-white/90">Estoque:</label>
+              <label
+                htmlFor="input-edit-product-stock"
+                className="text-white/90"
+              >
+                Estoque:
+              </label>
               <Input
                 type="number"
                 name="stock"
+                id="input-edit-product-stock"
                 value={formData.stock}
                 onChange={handleChange}
                 className="text-black bg-white rounded-md"
               />
 
-              <label className="text-white/90">Categoria:</label>
+              <label
+                htmlFor="select-edit-product-category"
+                className="text-white/90"
+              >
+                Categoria:
+              </label>
               {categories.length === 0 ? (
-                <p className="text-red-400">Nenhuma categoria cadastrada!</p>
+                <p
+                  className="text-red-400"
+                  id="no-category-message-edit-product"
+                >
+                  Nenhuma categoria cadastrada!
+                </p>
               ) : (
                 <select
                   name="ID_category"
+                  id="select-edit-product-category"
                   value={formData.ID_category}
                   onChange={handleChange}
                   className="text-black bg-white rounded-md px-4 py-2"
                 >
-                  <option value="">Selecione</option>
+                  <option value="" id="option-select-category-default">
+                    Selecione
+                  </option>
                   {categories.map((cat) => (
-                    <option key={cat.ID_category} value={cat.ID_category}>
+                    <option
+                      key={cat.ID_category}
+                      value={cat.ID_category}
+                      id={`option-edit-category-${cat.ID_category}`}
+                    >
                       {cat.name}
                     </option>
                   ))}
@@ -213,6 +270,7 @@ export default function CardEditProduct() {
 
               <Button
                 onClick={handleSave}
+                id="button-save-product-changes"
                 className="mt-4 py-4 text-lg font-semibold rounded-md text-white border-white/50"
                 style={{
                   background:

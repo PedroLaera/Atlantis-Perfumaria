@@ -1,22 +1,42 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@custom-variant dark (&:is(.dark *));
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap");
+
+/* Reset global - ESSENCIAL para remover espaços indesejados */
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Garante que ocupem a altura total */
+  min-height: 100vh; /* Garante que o body tenha no mínimo a altura da viewport */
+  overflow-x: hidden; /* Evita scroll horizontal indesejado */
+  box-sizing: border-box; /* Inclui padding e border no tamanho do elemento */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit; /* Garante que todos os elementos herdem box-sizing: border-box */
+}
 
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color-scheme: light dark; /* Mantido para preferência do sistema */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Suas variáveis CSS para theming */
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -53,7 +73,6 @@
 
 a {
   font-weight: 500;
-  color: #000000;
   text-decoration: inherit;
 }
 a:hover {
@@ -63,9 +82,6 @@ a:hover {
 body {
   margin: 0;
   min-width: 320px;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   font-family: "Montserrat", sans-serif;
 }
 
@@ -138,6 +154,13 @@ button:focus-visible {
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+
+  .bg-white {
+    background-color: #2d3748;
+  }
+  .text-black {
+    color: #e2e8f0;
+  }
 }
 
 @theme inline {

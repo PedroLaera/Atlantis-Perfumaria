@@ -33,9 +33,9 @@ function CardRegister() {
       }, 2000);
     } catch (err: unknown) {
       if (err instanceof Error) {
-        setError(err.message);
+        setError("Informação já utilizada por outro usuário.");
       } else {
-        setError("Erro ao criar usuário. Tente novamente.");
+        setError("Informação já utilizada por outro usuário.");
       }
     }
   };

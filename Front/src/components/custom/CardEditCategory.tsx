@@ -82,6 +82,7 @@ export default function CardEditCategory() {
   return (
     <div
       className="w-full min-h-screen flex items-center justify-center p-4"
+      id="edit-category-page-container"
       style={{
         backgroundImage: `
           radial-gradient(at 20% 30%, #1e3a8a 0%, transparent 40%),
@@ -98,22 +99,35 @@ export default function CardEditCategory() {
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
+        id="edit-category-motion-container"
       >
-        <Card className="w-full max-w-md px-10 py-8 bg-transparent border border-white/30 rounded-xl text-white shadow-xl font-thin backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="text-3xl font-thin text-center mb-6 text-white">
+        <Card
+          className="w-full max-w-md px-10 py-8 border border-white/30 text-white shadow-xl rounded-xl backdrop-blur-sm font-thin"
+          id="edit-category-card"
+          style={{
+            backgroundColor: "rgba(20, 30, 80, 0.7)", // Azul escuro transparente
+          }}
+        >
+          <CardHeader id="card-header-edit-category">
+            <CardTitle
+              className="text-3xl font-thin text-center mb-6 text-white"
+              id="card-title-edit-category"
+            >
               Editar Categoria
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent id="card-content-edit-category">
             <div className="flex flex-col gap-4">
-              <label htmlFor="name" className="text-white/90 font-thin">
+              <label
+                htmlFor="input-category-name"
+                className="text-white/90 font-thin"
+              >
                 Nome da categoria:
               </label>
               <Input
                 type="text"
                 name="name"
-                id="name"
+                id="input-category-name"
                 placeholder="Digite o nome"
                 value={formData.name}
                 onChange={handleChange}
@@ -124,6 +138,7 @@ export default function CardEditCategory() {
 
               <Button
                 onClick={updateCategory}
+                id="button-update-category"
                 className="mt-4 w-full py-3 text-lg font-semibold rounded-md text-white border-white/50! transition-all duration-200"
                 style={{
                   background:
