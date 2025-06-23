@@ -53,6 +53,7 @@ services:
       - 443:443
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/certs/atlantisperfumaria.com.br.crt:/etc/nginx/atlantisperfumaria.com.br.crt:ro
       - ./nginx/certs/cert.pem:/etc/nginx/cert.pem:ro
       - ./nginx/certs/chave.pem:/etc/nginx/chave.pem:ro
     depends_on:
