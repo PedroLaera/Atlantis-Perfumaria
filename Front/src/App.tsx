@@ -28,8 +28,6 @@ import Checkout from "./pages/Checkout";
 import SupportPage from "./pages/Suport";
 import CardEditUser from "./pages/EditProfile";
 import ProtectedRoute from "./components/custom/ProtectedRoute";
-
-import NavBar from "./components/custom/NavBar";
 import Footer from "./components/custom/Footer";
 
 function AppRoutes() {
@@ -43,8 +41,6 @@ function AppRoutes() {
 
   return (
     <>
-      {!hideLayout && <NavBar />}
-
       <Routes>
         <Route path="/" element={<WelcomePage />} />
         <Route path="/login" element={<Login />} />
