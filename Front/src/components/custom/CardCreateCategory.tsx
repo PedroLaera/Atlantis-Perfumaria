@@ -35,6 +35,7 @@ export default function CardCreateCategory() {
       });
 
       console.log("Categoria cadastrada com sucesso!", response.data);
+      alert("Categoria cadastrada com sucesso!");
       navigate("/addproduct");
     } catch (error) {
       const errorMessage =
@@ -50,6 +51,7 @@ export default function CardCreateCategory() {
   return (
     <div
       className="w-full min-h-screen flex items-center justify-center p-4"
+      id="create-category-page-container"
       style={{
         backgroundImage: `
           radial-gradient(at 20% 30%, #1e3a8a 0%, transparent 40%),
@@ -66,32 +68,47 @@ export default function CardCreateCategory() {
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
+        id="create-category-motion-container"
       >
-        <Card className="w-full max-w-4xl px-12! py-12! h-auto p-8 border border-white/30 bg-transparent text-white shadow-x1 rounded-xl backdrop-blur-sm font-thin">
-          <CardHeader>
-            <CardTitle className="text-3xl font-thin text-center mb-4 text-white">
+        <Card
+          className="w-full max-w-md px-10 py-8 border border-white/30 text-white shadow-xl rounded-xl backdrop-blur-sm font-thin"
+          id="create-category-card"
+          style={{
+            backgroundColor: "rgba(20, 30, 80, 0.7)", // Azul escuro transparente
+          }}
+        >
+          <CardHeader id="card-header-create-category">
+            <CardTitle
+              className="text-3xl font-thin text-center mb-6 text-white"
+              id="card-title-new-category"
+            >
               Nova Categoria
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent id="card-content-create-category">
             <div className="flex flex-col gap-4">
-              <label htmlFor="name" className="text-white/90 font-thin">
+              <label
+                htmlFor="input-category-name"
+                className="text-white/90 font-thin"
+              >
                 Nome da categoria:
               </label>
               <Input
                 type="text"
                 name="name"
-                id="name"
+                id="input-category-name"
+                placeholder="Digite o nome"
                 value={formData.name}
                 onChange={handleChange}
-                placeholder="Digite o nome"
-                className="text-black px-12 py-4 bg-white rounded-md"
+                className="text-black px-4 py-2 rounded-md"
                 style={{ height: "38px" }}
+                required
               />
 
               <Button
                 onClick={CreateCategory}
-                className="mt-2 w-full py-4 text-lg font-semibold rounded-md text-white border-white/50! transition-all duration-200"
+                id="button-create-category"
+                className="mt-4 w-full py-3 text-lg font-semibold rounded-md text-white border-white/50! transition-all duration-200"
                 style={{
                   background:
                     "linear-gradient(90deg, #7b3fe4, #3b82f6, #1e40af, #06b6d4)",
@@ -102,8 +119,7 @@ export default function CardCreateCategory() {
                     "brightness(1.1)";
                 }}
                 onMouseLeave={(e) => {
-                  (e.currentTarget as HTMLButtonElement).style.filter =
-                    "brightness(1)";
+                  (e.currentTarget as HTMLButtonElement).style.filter = "none";
                 }}
               >
                 Cadastrar

@@ -27,13 +27,14 @@ test("Crud Produto", async ({ page }) => {
 
   await page.getByRole("button", { name: /Cadastrar/i }).click();
 
+
+  await page.getByRole("button", { name: /Categorias/i }).click();
+
   await page.getByRole("button", { name: /Categorias/i }).click();
 
   const todasAsLinhas = page.getByRole('row');
 
   const linhaEspecifica = todasAsLinhas.filter({hasText: test })
-
-  
 
   await page.getByRole("link", { name: /editar/i }).click();
 

@@ -1,6 +1,8 @@
 .env
 docker-compose.yml
-nginx.conf
+/nginx/nginx.conf
+/nginx/certs
+/nginx/OPEN-SSL.cnf
 
 # Playwright
 node_modules/

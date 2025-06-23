@@ -1,7 +1,8 @@
+// src/components/ProductList.tsx
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { api } from "../services/api";
-import { Package, LayoutList } from "lucide-react";
+import { Package, LayoutList } from "lucide-react"; // Mantenha apenas os ícones necessários para as abas
 
 interface Product {
   id_product: number;
@@ -47,35 +48,25 @@ export default function ProductList() {
     fetchCategories();
   }, []);
 
-  const deleteProduct = async (id: number, name: string) => {
-    const confirmDelete = window.confirm(
-      `Tem certeza que deseja excluir o produto ${name}?`
-    );
-    if (!confirmDelete) return;
-
+  const deleteProduct = async (id: number) => {
     try {
       await api.delete(`/products/${id}`);
       setProductList((prev) =>
         prev.filter((product) => product.id_product !== id)
       );
     } catch {
-      alert("Erro ao tentar excluir produto");
+      alert("Produto não excluído!");
     }
   };
 
-  const deleteCategory = async (id: number, name: string) => {
-    const confirmDelete = window.confirm(
-      `Tem certeza que deseja excluir a categoria ${name}? Todos os produtos associados a esta categoria também serão excluídos.`
-    );
-    if (!confirmDelete) return;
-
+  const deleteCategory = async (id: number) => {
     try {
       await api.delete(`/category/${id}`);
       setCategoryList((prev) =>
         prev.filter((category) => category.ID_category !== id)
       );
     } catch {
-      alert("Erro ao tentar excluir categoria");
+      alert("Categoria não excluída!");
     }
   };
 
@@ -87,28 +78,18 @@ export default function ProductList() {
   };
 
   return (
-    <div
-      className="w-full min-h-screen p-4 text-white"
-      style={{
-        backgroundImage: `
-          radial-gradient(at 20% 30%, #1e3a8a 0%, transparent 40%),
-          radial-gradient(at 80% 20%, #4c1d95 0%, transparent 50%),
-          radial-gradient(at 50% 100%, #10b981 0%, transparent 70%),
-          radial-gradient(at 70% 70%, #1e40af 0%, transparent 40%),
-          linear-gradient(135deg, #0f172a 0%, #0c0c1c 100%)
-        `,
-        backgroundColor: "#0f172a",
-        backgroundBlendMode: "screen",
-      }}
-    >
-      <div className="flex justify-center">
+    <div className="w-full text-white">
+      {" "}
+      {/* Remove o background e ajuste para ocupar largura total */}
+      {/* Abas de Produtos/Categorias - Mantidas aqui */}
+      <div className="flex justify-center mb-6">
         <div className="flex justify-center">
           <button
             onClick={() => setActiveTab("products")}
             className={`flex items-center gap-2 px-6 py-2 rounded-l-md transition-all duration-200 border border-white ${
               activeTab === "products"
-                ? "bg-blue-800! text-white shadow-md"
-                : "bg-gray-800! text-gray-300 hover:bg-blue-700"
+                ? "bg-blue-800 text-white shadow-md"
+                : "bg-gray-800 text-gray-300 hover:bg-blue-700"
             }`}
           >
             <Package size={18} />
@@ -118,8 +99,8 @@ export default function ProductList() {
             onClick={() => setActiveTab("categories")}
             className={`flex items-center gap-2 px-6 py-2 rounded-r-md transition-all duration-200 border border-white ${
               activeTab === "categories"
-                ? "bg-blue-800! text-white shadow-md"
-                : "bg-gray-800! text-gray-300 hover:bg-purple-700"
+                ? "bg-blue-800 text-white shadow-md"
+                : "bg-gray-800 text-gray-300 hover:bg-purple-700"
             }`}
           >
             <LayoutList size={18} />
@@ -127,7 +108,7 @@ export default function ProductList() {
           </button>
         </div>
       </div>
-
+      {/* Conteúdo da Tab de Produtos */}
       {activeTab === "products" && (
         <div className="bg-blue-900/80 border border-white rounded-lg shadow-lg p-4">
           <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
@@ -136,7 +117,7 @@ export default function ProductList() {
             </h2>
             <Link
               to="/createProduct"
-              className="px-4 py-1 border border-white rounded-full bg-white text-blue-900 hover:shadow-lg hover:shadow-white-900! transition"
+              className="px-4 py-1 border border-white rounded-full bg-white text-blue-900 hover:shadow-lg hover:shadow-white transition"
             >
               Adicionar Novo Produto
             </Link>
@@ -167,16 +148,14 @@ export default function ProductList() {
                     <td className="py-2 px-4">
                       <div className="flex flex-col sm:flex-row gap-2">
                         <button
-                          onClick={() =>
-                            deleteProduct(product.id_product, product.name)
-                          }
-                          className="bg-red-600! text-white px-4 h-8 rounded-full! flex items-center justify-center hover:bg-red-700!"
+                          onClick={() => deleteProduct(product.id_product)}
+                          className="bg-red-600 text-white px-4 h-8 rounded-full flex items-center justify-center hover:bg-red-700"
                         >
                           Excluir
                         </button>
                         <Link
                           to={`/editProduct/${product.id_product}`}
-                          className="bg-blue-600! text-white px-4 h-8 rounded-full! flex items-center justify-center hover:bg-blue-400!"
+                          className="bg-blue-600 text-white px-4 h-8 rounded-full flex items-center justify-center hover:bg-blue-400"
                         >
                           Editar
                         </Link>
@@ -189,7 +168,7 @@ export default function ProductList() {
           </div>
         </div>
       )}
-
+      {/* Conteúdo da Tab de Categorias */}
       {activeTab === "categories" && (
         <div className="bg-blue-900/80 border border-white rounded-lg shadow-lg p-4">
           <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-4">
@@ -198,7 +177,7 @@ export default function ProductList() {
             </h2>
             <Link
               to="/createCategory"
-              className="px-4 py-1 border border-white rounded-full bg-white text-blue-900 hover:shadow-lg hover:shadow-white-900! transition"
+              className="px-4 py-1 border border-white rounded-full bg-white text-blue-900 hover:shadow-lg hover:shadow-white transition"
             >
               Adicionar Nova Categoria
             </Link>
@@ -221,16 +200,14 @@ export default function ProductList() {
                     <td className="py-2 px-4">
                       <div className="flex flex-col sm:flex-row gap-2">
                         <button
-                          onClick={() =>
-                            deleteCategory(category.ID_category, category.name)
-                          }
-                          className="bg-red-600! text-white px-4 h-8 rounded-full! flex items-center justify-center hover:bg-red-700!"
+                          onClick={() => deleteCategory(category.ID_category)}
+                          className="bg-red-600 text-white px-4 h-8 rounded-full flex items-center justify-center hover:bg-red-700"
                         >
                           Excluir
                         </button>
                         <Link
                           to={`/editCategory/${category.ID_category}`}
-                          className="bg-blue-600! text-white px-4 h-8 rounded-full! flex items-center justify-center hover:bg-blue-400!"
+                          className="bg-blue-600 text-white px-4 h-8 rounded-full flex items-center justify-center hover:bg-blue-400"
                         >
                           Editar
                         </Link>
