@@ -29,10 +29,6 @@ test("Crud Produto", async ({ page }) => {
 
   await page.getByRole("button", { name: /Categorias/i }).click();
 
-  const todasAsLinhas = page.getByRole("row");
-
-  const linhaEspecifica = todasAsLinhas.filter({ hasText: test });
-
   await page.getByRole("link", { name: /editar/i }).click();
 
   await page.locator('input[name="name"]').fill("test edited");
