@@ -1,7 +1,3 @@
-.env
-docker-compose.yml
-nginx.conf
-
 # Playwright
 node_modules/
 /test-results/

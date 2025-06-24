@@ -2,11 +2,11 @@ import { Sequelize } from "sequelize";
 const isTest = process.env.NODE_ENV === "test";
 
 const sequelize = new Sequelize(
-  (isTest ? process.env.DB_NAME_TEST : process.env.DB_NAME)!,
-  process.env.DB_USER!,
-  process.env.DB_PASSWORD!,
+  process.env.MYSQL_DB_NAME!,
+  process.env.MYSQL_USER!,
+  process.env.MYSQL_PASSWORD!,
   {
-    host: process.env.DB_HOST!,
+    host: process.env.MYSQL_HOST!,
     dialect: "mysql",
     logging: !isTest,
   }

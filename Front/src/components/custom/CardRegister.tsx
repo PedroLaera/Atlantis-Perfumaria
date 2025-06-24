@@ -1,27 +1,7 @@
 import React, { useState } from "react";
 import { api } from "../../services/api";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { cpf as cpfValidator } from "cpf-cnpj-validator";
-
-function maskCPF(value: string) {
-  // Remove tudo que não é número
-  let v = value.replace(/\D/g, "");
-  // Limita a 11 números (CPF tem 11 dígitos)
-  v = v.slice(0, 11);
-
-  // Aplica a máscara passo a passo
-  if (v.length > 9) {
-    v = v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, "$1.$2.$3-$4");
-  } else if (v.length > 6) {
-    v = v.replace(/(\d{3})(\d{3})(\d{1,3})/, "$1.$2.$3");
-  } else if (v.length > 3) {
-    v = v.replace(/(\d{3})(\d{1,3})/, "$1.$2");
-  }
-
-  return v;
-}
 
 function CardRegister() {
   const [formData, setFormData] = useState({
@@ -36,14 +16,7 @@ function CardRegister() {
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    if (name === "CPF") {
-      const masked = maskCPF(value);
-      setFormData((prev) => ({ ...prev, CPF: masked }));
-    } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
-    }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -51,35 +24,19 @@ function CardRegister() {
     setError("");
     setSuccess("");
 
-    const rawCPF = formData.CPF.replace(/\D/g, "");
-
-    if (!cpfValidator.isValid(rawCPF)) {
-      setError("CPF inválido.");
-      return;
-    }
-
     try {
-      await api.post("/users", {
-        ...formData,
-        CPF: rawCPF,
-      });
-
+      await api.post("/users", formData);
       setSuccess("Usuário criado com sucesso!");
+
       setTimeout(() => {
         navigate("/login");
       }, 2000);
     } catch (err: unknown) {
-      let message = "Erro ao criar o usuário.";
-      if (axios.isAxiosError(err)) {
-        if (err.response?.data?.error?.includes("CPF")) {
-          message = "Este CPF já está cadastrado.";
-        } else if (err.response?.data?.error?.includes("email")) {
-          message = "Este e-mail já está cadastrado.";
-        } else if (err.response?.data?.error) {
-          message = err.response.data.error;
-        }
+      if (err instanceof Error) {
+        setError("Informação já utilizada por outro usuário.");
+      } else {
+        setError("Informação já utilizada por outro usuário.");
       }
-      setError(message);
     }
   };
 
@@ -135,7 +92,6 @@ function CardRegister() {
         placeholder="CPF"
         value={formData.CPF}
         onChange={handleChange}
-        maxLength={14}
         className="bg-slate-800 border border-slate-600 text-slate-200 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-700 rounded px-4 py-2 w-full mb-4"
         required
       />
@@ -155,9 +111,9 @@ function CardRegister() {
       </button>
 
       <p className="mt-6 text-center text-sm text-slate-300">
-        Você já tem conta?{" "}
+        Já tem conta?{" "}
         <span
-          className="text-blue-500 hover:underline cursor-pointer"
+          className="text-green-400 hover:underline cursor-pointer"
           onClick={() => navigate("/login")}
         >
           Faça login
