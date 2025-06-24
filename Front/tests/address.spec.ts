@@ -1,13 +1,10 @@
 import { test, expect } from "@playwright/test";
 
-// --- Dados do Usuário em Constantes ---
 //const NOME_USUARIO = 'Pedro Laera';
 const EMAIL_USUARIO = "pedroLaele@hotmail.com";
 const SENHA_USUARIO = "12345678@";
-//const CPF_USUARIO = '275.538.590-10';
 
 test.describe.serial("CRUD de endereço", () => {
-    // Teste 1: Focado apenas no registro
     // Este teste irá rodar primeiro, criando o usuário.    
 test("criando endereço", async ({ page }) => {
     await page.goto("https://localhost/login");
