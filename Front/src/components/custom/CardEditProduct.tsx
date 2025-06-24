@@ -105,7 +105,6 @@ export default function CardEditProduct() {
       });
 
       console.log("Produto atualizado com sucesso:", response.data);
-      alert("Produto atualizado com sucesso!");
       navigate("/addproduct");
     } catch (error: unknown) {
       if (typeof error === "object" && error !== null && "response" in error) {
@@ -138,7 +137,7 @@ export default function CardEditProduct() {
   return (
     <div
       className="w-full min-h-screen flex items-center justify-center p-4"
-      id="edit-product-page-container"
+      id="1"
       style={{
         backgroundImage: `
           radial-gradient(at 20% 30%, #1e3a8a 0%, transparent 40%),
@@ -155,20 +154,17 @@ export default function CardEditProduct() {
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        id="edit-product-motion-container"
+        id="2"
       >
         <Card
           className="w-full max-w-4xl p-8 border border-white/30 text-white rounded-xl backdrop-blur-sm font-thin"
-          id="edit-product-card"
+          id="3"
           style={{
             backgroundColor: "rgba(20, 30, 80, 0.7)", // Azul escuro transparente
           }}
         >
           <CardHeader id="card-header-edit-product">
-            <CardTitle
-              className="text-3xl text-center"
-              id="card-title-edit-product"
-            >
+            <CardTitle className="text-3xl text-center" id="4">
               Editar Produto
             </CardTitle>
           </CardHeader>
@@ -182,7 +178,7 @@ export default function CardEditProduct() {
               </label>
               <Input
                 name="name"
-                id="input-edit-product-name"
+                id="5"
                 value={formData.name}
                 onChange={handleChange}
                 className="text-black bg-white rounded-md"
@@ -196,7 +192,7 @@ export default function CardEditProduct() {
               </label>
               <Input
                 name="description"
-                id="input-edit-product-description"
+                id="6"
                 value={formData.description}
                 onChange={handleChange}
                 className="text-black bg-white rounded-md"
@@ -211,7 +207,7 @@ export default function CardEditProduct() {
               <Input
                 type="number"
                 name="price"
-                id="input-edit-product-price"
+                id="7"
                 value={formData.price}
                 onChange={handleChange}
                 className="text-black bg-white rounded-md"
@@ -226,7 +222,7 @@ export default function CardEditProduct() {
               <Input
                 type="number"
                 name="stock"
-                id="input-edit-product-stock"
+                id="8"
                 value={formData.stock}
                 onChange={handleChange}
                 className="text-black bg-white rounded-md"
@@ -239,16 +235,13 @@ export default function CardEditProduct() {
                 Categoria:
               </label>
               {categories.length === 0 ? (
-                <p
-                  className="text-red-400"
-                  id="no-category-message-edit-product"
-                >
+                <p className="text-red-400" id="9">
                   Nenhuma categoria cadastrada!
                 </p>
               ) : (
                 <select
                   name="ID_category"
-                  id="select-edit-product-category"
+                  id="10"
                   value={formData.ID_category}
                   onChange={handleChange}
                   className="text-black bg-white rounded-md px-4 py-2"
@@ -270,7 +263,7 @@ export default function CardEditProduct() {
 
               <Button
                 onClick={handleSave}
-                id="button-save-product-changes"
+                id="11"
                 className="mt-4 py-4 text-lg font-semibold rounded-md text-white border-white/50"
                 style={{
                   background:

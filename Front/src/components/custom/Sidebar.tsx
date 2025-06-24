@@ -38,13 +38,13 @@ export default function Sidebar({ children }: SidebarProps) {
             linear-gradient(180deg, #1e3a8a 0%, #4c1d95 100%)
           `,
         }}
-        id="sidebar-container"
+        id="1"
       >
         <div className="flex items-center justify-between mb-6">
           {!isSidebarCollapsed && (
             <h1
               className="text-2xl font-bold transition-opacity duration-200"
-              id="sidebar-menu-title"
+              id="2"
             >
               Menu
             </h1>
@@ -58,7 +58,7 @@ export default function Sidebar({ children }: SidebarProps) {
                 toggleSidebarCollapse();
               }
             }}
-            id="sidebar-toggle-button"
+            id="3"
           >
             {isSidebarCollapsed ? (
               <PanelLeftOpen size={24} />
@@ -69,12 +69,12 @@ export default function Sidebar({ children }: SidebarProps) {
           <button
             className="md:hidden text-white ml-auto"
             onClick={() => setIsSidebarOpen(false)}
-            id="sidebar-close-mobile-button"
+            id="4"
           >
             <X size={24} />
           </button>
         </div>
-        <nav id="sidebar-navigation">
+        <nav id="5">
           <ul>
             <li className="mb-4">
               <Link
@@ -82,7 +82,7 @@ export default function Sidebar({ children }: SidebarProps) {
                 className={`flex items-center gap-3 p-3 rounded-lg text-white hover:bg-indigo-700 transition-all duration-200 ${
                   isSidebarCollapsed ? "justify-center" : ""
                 }`}
-                id="link-sales"
+                id="6"
               >
                 <ShoppingCart size={20} />
                 {!isSidebarCollapsed && (
@@ -96,7 +96,7 @@ export default function Sidebar({ children }: SidebarProps) {
                 className={`flex items-center gap-3 p-3 rounded-lg text-white hover:bg-indigo-700 transition-all duration-200 ${
                   isSidebarCollapsed ? "justify-center" : ""
                 }`}
-                id="link-invoice"
+                id="7"
               >
                 <FileText size={20} />
                 {!isSidebarCollapsed && (
@@ -110,7 +110,7 @@ export default function Sidebar({ children }: SidebarProps) {
                 className={`flex items-center gap-3 p-3 rounded-lg text-white hover:bg-indigo-700 transition-all duration-200 ${
                   isSidebarCollapsed ? "justify-center" : ""
                 }`}
-                id="link-create-product"
+                id="8"
               >
                 <PlusCircle size={20} />
                 {!isSidebarCollapsed && (
@@ -124,7 +124,7 @@ export default function Sidebar({ children }: SidebarProps) {
                 className={`flex items-center gap-3 p-3 rounded-lg text-white hover:bg-indigo-700 transition-all duration-200 ${
                   isSidebarCollapsed ? "justify-center" : ""
                 }`}
-                id="link-create-category"
+                id="9"
               >
                 <FolderPlus size={20} />
                 {!isSidebarCollapsed && (
@@ -138,7 +138,7 @@ export default function Sidebar({ children }: SidebarProps) {
                 className={`flex items-center gap-3 p-3 rounded-lg text-white hover:bg-indigo-700 transition-all duration-200 ${
                   isSidebarCollapsed ? "justify-center" : ""
                 }`}
-                id="link-view-products-categories"
+                id="10"
               >
                 <ListCollapse size={20} />
                 {!isSidebarCollapsed && (
@@ -152,7 +152,7 @@ export default function Sidebar({ children }: SidebarProps) {
                 className={`flex items-center gap-3 p-3 rounded-lg text-white hover:bg-indigo-700 transition-all duration-200 ${
                   isSidebarCollapsed ? "justify-center" : ""
                 }`}
-                id="link-profile"
+                id="11"
               >
                 <User size={20} />
                 {!isSidebarCollapsed && (
@@ -179,12 +179,12 @@ export default function Sidebar({ children }: SidebarProps) {
           backgroundColor: "#0f172a",
           backgroundBlendMode: "screen",
         }}
-        id="main-content-area"
+        id="12"
       >
         <button
           className="md:hidden fixed top-4 left-4 text-white z-40 bg-gray-800 p-2 rounded-md shadow-lg"
           onClick={() => setIsSidebarOpen(true)}
-          id="mobile-sidebar-open-button"
+          id="13"
         >
           <Menu size={24} />
         </button>
@@ -193,7 +193,7 @@ export default function Sidebar({ children }: SidebarProps) {
           <div
             className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
             onClick={() => setIsSidebarOpen(false)}
-            id="mobile-sidebar-overlay"
+            id="14"
           ></div>
         )}
 

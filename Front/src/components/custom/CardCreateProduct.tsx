@@ -106,7 +106,7 @@ export default function CardCreateProduct() {
   return (
     <div
       className="w-full min-h-screen flex items-center justify-center p-4"
-      id="create-product-page-container"
+      id="1"
       style={{
         backgroundImage: `
           radial-gradient(at 20% 30%, #1e3a8a 0%, transparent 40%),
@@ -123,11 +123,11 @@ export default function CardCreateProduct() {
         initial={{ opacity: 0, y: 100 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        id="create-product-motion-container"
+        id="2"
       >
         <Card
           className="w-full max-w-4xl px-12! py-12! h-auto p-8 border border-white/30 text-white shadow-x1 rounded-xl backdrop-blur-sm font-thin"
-          id="create-product-card"
+          id="3"
           style={{
             backgroundColor: "rgba(20, 30, 80, 0.7)", // Azul escuro transparente
           }}
@@ -135,12 +135,12 @@ export default function CardCreateProduct() {
           <CardHeader id="card-header-create-product">
             <CardTitle
               className="text-3xl font-thin text-center mb-4 text-white"
-              id="card-title-new-product"
+              id="4"
             >
               Novo Produto
             </CardTitle>
           </CardHeader>
-          <CardContent id="card-content-create-product">
+          <CardContent id="5">
             <div className="flex flex-col gap-4">
               <label
                 htmlFor="input-product-name"
@@ -151,7 +151,7 @@ export default function CardCreateProduct() {
               <Input
                 type="text"
                 name="name"
-                id="input-product-name"
+                id="6"
                 value={formData.name}
                 onChange={handleChange}
                 placeholder="Digite o nome"
@@ -168,7 +168,7 @@ export default function CardCreateProduct() {
               <Input
                 type="text"
                 name="description"
-                id="input-product-description"
+                id="7"
                 value={formData.description}
                 onChange={handleChange}
                 placeholder="Digite a descrição"
@@ -185,7 +185,7 @@ export default function CardCreateProduct() {
               <Input
                 type="number"
                 name="price"
-                id="input-product-price"
+                id="8"
                 value={formData.price}
                 onChange={handleChange}
                 placeholder="Digite o preço"
@@ -204,7 +204,7 @@ export default function CardCreateProduct() {
               <Input
                 type="number"
                 name="stock"
-                id="input-product-stock"
+                id="9"
                 value={formData.stock}
                 onChange={handleChange}
                 placeholder="Digite a quantidade em estoque"
@@ -220,23 +220,17 @@ export default function CardCreateProduct() {
                 Escolha a categoria:
               </label>
               {loadingCategories ? (
-                <p
-                  className="text-white font-thin"
-                  id="loading-categories-message"
-                >
+                <p className="text-white font-thin" id="10">
                   Carregando categorias...
                 </p>
               ) : categories.length === 0 ? (
-                <p
-                  className="text-red-400 font-thin"
-                  id="no-categories-message"
-                >
+                <p className="text-red-400 font-thin" id="11">
                   Nenhuma categoria cadastrada. Cadastre uma categoria antes.
                 </p>
               ) : (
                 <select
                   name="ID_category"
-                  id="select-product-category"
+                  id="12"
                   value={formData.ID_category}
                   onChange={handleChange}
                   required
@@ -244,7 +238,7 @@ export default function CardCreateProduct() {
                   style={{ height: "38px" }}
                 >
                   <option value="" disabled>
-                    Seleccione a categoria
+                    Selecione a categoria
                   </option>
                   {categories.map((cat) => (
                     <option
@@ -260,7 +254,7 @@ export default function CardCreateProduct() {
 
               <Button
                 onClick={createProduct}
-                id="button-create-product"
+                id="13"
                 className="mt-2 w-full py-4 text-lg font-semibold rounded-md text-white border-white/50! transition-all duration-200"
                 style={{
                   background:
