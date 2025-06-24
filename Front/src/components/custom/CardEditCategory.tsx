@@ -66,7 +66,6 @@ export default function CardEditCategory() {
         }
       );
 
-      alert("Categoria atualizada com sucesso!");
       navigate("/addproduct");
     } catch (error) {
       const errorMessage =
@@ -111,7 +110,7 @@ export default function CardEditCategory() {
           <CardHeader id="card-header-edit-category">
             <CardTitle
               className="text-3xl font-thin text-center mb-6 text-white"
-              id="card-title-edit-category"
+              id="1"
             >
               Editar Categoria
             </CardTitle>
@@ -119,7 +118,7 @@ export default function CardEditCategory() {
           <CardContent id="card-content-edit-category">
             <div className="flex flex-col gap-4">
               <label
-                htmlFor="input-category-name"
+                htmlFor="category-name"
                 className="text-white/90 font-thin"
               >
                 Nome da categoria:
@@ -127,7 +126,7 @@ export default function CardEditCategory() {
               <Input
                 type="text"
                 name="name"
-                id="input-category-name"
+                id="category-name"
                 placeholder="Digite o nome"
                 value={formData.name}
                 onChange={handleChange}
@@ -138,7 +137,7 @@ export default function CardEditCategory() {
 
               <Button
                 onClick={updateCategory}
-                id="button-update-category"
+                id="2"
                 className="mt-4 w-full py-3 text-lg font-semibold rounded-md text-white border-white/50! transition-all duration-200"
                 style={{
                   background:

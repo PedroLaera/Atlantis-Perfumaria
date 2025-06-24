@@ -92,7 +92,7 @@ export default function ProductList() {
                 : "bg-gray-800 text-gray-300 hover:bg-blue-700"
             }`}
           >
-            <Package size={18} />
+            <Package size={18} id="6" />
             Produtos
           </button>
           <button
@@ -103,7 +103,7 @@ export default function ProductList() {
                 : "bg-gray-800 text-gray-300 hover:bg-purple-700"
             }`}
           >
-            <LayoutList size={18} />
+            <LayoutList size={18} id="5" />
             Categorias
           </button>
         </div>
@@ -115,12 +115,6 @@ export default function ProductList() {
             <h2 className="text-xl font-semibold text-white">
               Produtos Cadastrados
             </h2>
-            <Link
-              to="/createProduct"
-              className="px-4 py-1 border border-white rounded-full bg-white text-blue-900 hover:shadow-lg hover:shadow-white transition"
-            >
-              Adicionar Novo Produto
-            </Link>
           </div>
 
           <div className="overflow-x-auto">
@@ -150,12 +144,14 @@ export default function ProductList() {
                         <button
                           onClick={() => deleteProduct(product.id_product)}
                           className="bg-red-600 text-white px-4 h-8 rounded-full flex items-center justify-center hover:bg-red-700"
+                          id="1"
                         >
                           Excluir
                         </button>
                         <Link
                           to={`/editProduct/${product.id_product}`}
                           className="bg-blue-600 text-white px-4 h-8 rounded-full flex items-center justify-center hover:bg-blue-400"
+                          id="2"
                         >
                           Editar
                         </Link>
@@ -175,14 +171,7 @@ export default function ProductList() {
             <h2 className="text-xl font-semibold text-white">
               Categorias Cadastradas
             </h2>
-            <Link
-              to="/createCategory"
-              className="px-4 py-1 border border-white rounded-full bg-white text-blue-900 hover:shadow-lg hover:shadow-white transition"
-            >
-              Adicionar Nova Categoria
-            </Link>
           </div>
-
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white rounded text-black text-sm">
               <thead className="bg-gray-100">
@@ -202,12 +191,14 @@ export default function ProductList() {
                         <button
                           onClick={() => deleteCategory(category.ID_category)}
                           className="bg-red-600 text-white px-4 h-8 rounded-full flex items-center justify-center hover:bg-red-700"
+                          id="3"
                         >
                           Excluir
                         </button>
                         <Link
                           to={`/editCategory/${category.ID_category}`}
                           className="bg-blue-600 text-white px-4 h-8 rounded-full flex items-center justify-center hover:bg-blue-400"
+                          id="4"
                         >
                           Editar
                         </Link>

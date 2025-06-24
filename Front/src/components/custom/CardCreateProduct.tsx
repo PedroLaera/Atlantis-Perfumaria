@@ -91,7 +91,6 @@ export default function CardCreateProduct() {
         },
       });
 
-      alert("Produto cadastrado com sucesso!");
       navigate("/addproduct");
     } catch (error) {
       const errorMessage =
