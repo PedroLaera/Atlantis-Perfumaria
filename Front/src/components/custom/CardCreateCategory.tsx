@@ -35,7 +35,6 @@ export default function CardCreateCategory() {
       });
 
       console.log("Categoria cadastrada com sucesso!", response.data);
-      alert("Categoria cadastrada com sucesso!");
       navigate("/addproduct");
     } catch (error) {
       const errorMessage =
