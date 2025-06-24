@@ -30,6 +30,10 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+
+    // IMPORTANTE: Ignora erros de certificado HTTPS
+    // Isso resolve o problema de ERR_CERT_AUTHORITY_INVALID para localhost
+    ignoreHTTPSErrors: true,
   },
 
   /* Configure projects for major browsers */
