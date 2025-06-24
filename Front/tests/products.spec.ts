@@ -15,19 +15,15 @@ test("Crud Produto", async ({ page }) => {
 
   await expect(page).toHaveURL("https://localhost/profile");
 
-  await page.getByRole("link", { name: /Adicionar Produto/i }).click();
+  await page.getByRole("link", { name: /Adicionar Categoria/i }).click();
 
-  await page.getByRole("button", { name: /Categorias/i }).click();
-
-  await expect(page).toHaveURL("https://localhost/addproduct");
-
-  await page.getByRole("link", { name: /Adicionar Nova Categoria/i }).click();
+  await expect(page).toHaveURL("https://localhost/createCategory");
 
   await page.locator('input[name="name"]').fill("test");
 
   await page.getByRole("button", { name: /Cadastrar/i }).click();
 
-  await page.getByRole("button", { name: /Categorias/i }).click();
+  await page.getByRole("link", { name: /Visualizar/i }).click();
 
   await page.getByRole("button", { name: /Categorias/i }).click();
 
@@ -36,4 +32,6 @@ test("Crud Produto", async ({ page }) => {
   await page.locator('input[name="name"]').fill("test edited");
 
   await page.getByRole("button", { name: /Salvar Alterações/i }).click();
+
+  await page.getByRole("button", { name: /Categorias/i }).click();
 });
