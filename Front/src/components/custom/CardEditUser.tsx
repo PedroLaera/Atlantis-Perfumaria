@@ -13,7 +13,6 @@ export default function CardEditUser() {
   });
 
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -27,14 +26,11 @@ export default function CardEditUser() {
           return;
         }
 
-        const response = await api.get(
-          `/users/${id_user}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await api.get(`/users/${id_user}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         const userData = response.data.user || response.data;
         setFormData({
@@ -83,13 +79,11 @@ export default function CardEditUser() {
         },
       });
 
-      setMessage("Dados atualizados com sucesso!");
       setTimeout(() => {
         navigate("/profile");
       }, 2000);
     } catch (error) {
       console.error("Erro ao atualizar usuário:aaa", error);
-      alert("Preencha todos os campos corretamente.");
     }
   };
 
@@ -126,14 +120,10 @@ export default function CardEditUser() {
           <Button
             onClick={updateUser}
             className="bg-blue-600! hover:bg-blue-700 text-white border border-white! px-5 py-1.5 rounded-full transition-all duration-500 ease-in-out transform active:scale-95 shadow-md hover:shadow-[0_0_12px_rgba(59,130,246,0.7)]"
+            id="1"
           >
             Salvar Alterações
           </Button>
-          {message && (
-            <p className="text-green-400 text-center mt-2 font-medium">
-              {message}
-            </p>
-          )}
         </div>
       </CardContent>
     </Card>
