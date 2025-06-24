@@ -34,6 +34,23 @@ test.describe.serial("CRUD de Usuário", () => {
     await expect(page).toHaveURL("https://localhost/profile");
   });
 
+  test("deve editar o nome do usuário no perfil", async ({ page }) => {
+
+    await page.goto("https://localhost/login");
+
+    await page.locator('input[name="email"]').fill(EMAIL_USUARIO);
+    await page.locator('input[name="password"]').fill(SENHA_USUARIO);
+    await page.getByRole("button", { name: /entrar/i }).click();
+
+    await expect(page).toHaveURL("https://localhost/profile");
+
+    await page.goto("https://localhost/profile");
+    await page.waitForTimeout(3000);
+    await page.getByRole("button", { name: /Editar/i }).click();
+    await page.locator('input[name="name"]').fill("ivan, o professor");
+    await page.getByRole("button", { name: /Salvar Alterações/i }).click();
+  });
+
   // Teste 3: Focado apenas na exclusão (com seu próprio setup de login)
   test("deve apagar a conta após confirmação e alerta de sucesso", async ({
     page,
