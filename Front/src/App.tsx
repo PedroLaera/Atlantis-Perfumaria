@@ -46,9 +46,7 @@ function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
-
       {!hideLayout && (
-        // ***** MUDANÇA AQUI: Usar <Sidebar> com o novo nome *****
         <Sidebar>
           <Routes>
             <Route
