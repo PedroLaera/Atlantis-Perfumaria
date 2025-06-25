@@ -23,6 +23,7 @@ test("criando endereço", async ({ page }) => {
   
     await page.locator('input[name="city"]').fill("Campo Mourão");
     
+    
     await page.locator('input[name="state"]').fill("Paraná");
 
     await page.locator('input[name="zipCode"]').fill("87301178");
