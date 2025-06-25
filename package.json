@@ -4,6 +4,13 @@
     "sonner": "^2.0.5"
   },
   "devDependencies": {
-    "@playwright/test": "^1.53.1"
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@playwright/test": "^1.53.1",
+    "husky": "^9.1.7"
+  },
+  "scripts": {
+    "prepare": "husky",
+    "end-2-end": "cd Front && npm run end-2-end"
   }
 }
