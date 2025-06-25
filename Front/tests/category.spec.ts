@@ -47,23 +47,6 @@ test("Criar categoria", async ({ page }) => {
 
   await page.getByRole("button", { name: /Categorias/i }).click();
   });
-
-  /*test("deve excluir a categoria ", async ({
-    page,
-  }) => {
-    await page.goto("https://localhost/login");
-
-  await page.locator('input[name="email"]').fill(EMAIL_USUARIO);
-  await page.locator('input[name="password"]').fill(SENHA_USUARIO);
-  await page.getByRole("button", { name: /entrar/i }).click();
-  await expect(page).toHaveURL("https://localhost/profile");
-
-  await page.getByRole("link", { name: /Visualizar/i }).click();
-
-  await page.getByRole("button", { name: /Categorias/i }).click();
-
-  await page.locator('#4').click();
-  });*/
 });
 
 test.describe.serial("CRUD de Categoria falha", () => {

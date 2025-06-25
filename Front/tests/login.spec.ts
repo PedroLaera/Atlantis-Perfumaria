@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test";
 
-const NOME_USUARIO = "ivan vanco35";
-const EMAIL_USUARIO = "ivanvanc35@hotmail.com";
+const NOME_USUARIO = "ivan vanco37";
+const EMAIL_USUARIO = "ivanvanc37@hotmail.com";
 const SENHA_USUARIO = "12345678@";
-const CPF_USUARIO = "171.871.500-59";
+const CPF_USUARIO = "687.441.540-97";
 
 test.describe.serial("CRUD de Usuário", () => {
 

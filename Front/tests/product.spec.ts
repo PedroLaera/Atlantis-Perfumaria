@@ -71,18 +71,6 @@ test("criando produto", async ({ page }) => {
         await expect(page).toHaveURL("https://localhost/addproduct");
     }); 
 
-
-    /*test("excluindo produto", async ({ page }) => {
-        await page.goto("https://localhost/login");
-        await page.locator('input[name="email"]').fill(EMAIL_USUARIO);
-        await page.locator('input[name="password"]').fill(SENHA_USUARIO);
-        await page.getByRole("button", { name: /entrar/i }).click();
-        await expect(page).toHaveURL("https://localhost/profile");    
-
-        await page.getByRole("link", { name: /Visualizar/i }).click();
-
-        await page.locator('#1').click();
-    });*/
 });
 
 test.describe.serial("CRUD de produto com falha", () => {
@@ -121,7 +109,7 @@ test.describe.serial("CRUD de produto com falha", () => {
       
         await page.getByRole("button", { name: /Criar Produto/i }).click();
       
-        await expect(page).toHaveURL("https://localhost/createProduct");
+        await expect(page).toHaveURL("https://localhost/addproduct");
         });
 
     test("deve editar um produto com falha", async ({ page }) => {
