@@ -17,3 +17,4 @@ subjectAltName = @alt_names
 
 [ alt_names ]
 DNS.1 = atlantisperfumaria.com.br
+DNS.2 = www.atlantisperfumaria.com.br

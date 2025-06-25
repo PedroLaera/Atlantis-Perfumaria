@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "@material-tailwind/react": "^2.1.10"
+    "@material-tailwind/react": "^2.1.10",
+    "sonner": "^2.0.5"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
