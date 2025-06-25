@@ -11,9 +11,11 @@ test("criando produto", async ({ page }) => {
   await page.getByRole("button", { name: /entrar/i }).click();
   await expect(page).toHaveURL("https://localhost/profile");
 
-  await page.getByRole("link", { name: /Adicionar Produto/i }).click();
+  await page.getByRole("link", { name: /Criar Produto/i }).click();
 
   await expect(page).toHaveURL("https://localhost/createProduct");
+
+  await page.waitForTimeout(3000);
 
   await page.locator('input[name="name"]').fill("Test Novo Produto");
 
@@ -23,7 +25,9 @@ test("criando produto", async ({ page }) => {
 
   await page.locator('input[name="stock"]').fill("10");
 
-  await page.selectOption('#select-product-category', { index: 1 });
+  await page.locator('[id="12"]').selectOption({ index: 2 }); 
+
+  //await page.selectOption('#select-product-category', { index: 5 });
 
   await page.getByRole("button", { name: /Criar Produto/i }).click();
 
@@ -39,7 +43,7 @@ test("criando produto", async ({ page }) => {
 
         await page.getByRole("link", { name: /Visualizar/i }).click();
 
-        await page.locator('a[href="/editProduct/10"]').click();
+        await page.locator('a[href="/editProduct/6"]').click();
 
         await page.locator('input[name="name"]').fill("Test Novo Produto editedo");
 
@@ -49,7 +53,9 @@ test("criando produto", async ({ page }) => {
 
         await page.locator('input[name="stock"]').fill("20");
 
-        await page.selectOption('#select-edit-product-category', { index: 2 });
+        await page.locator('[id="10"]').selectOption({ index: 2 });
+
+        //await page.selectOption('#select-edit-product-category', { index: 2 });
         
         page.on('dialog', async dialog => {
 
@@ -88,7 +94,7 @@ test.describe.serial("CRUD de produto com falha", () => {
         await page.getByRole("button", { name: /entrar/i }).click();
         await expect(page).toHaveURL("https://localhost/profile");
 
-        await page.getByRole("link", { name: /Adicionar Produto/i }).click();
+        await page.getByRole("link", { name: /Criar Produto/i }).click();
 
         await expect(page).toHaveURL("https://localhost/createProduct");
       
@@ -100,7 +106,9 @@ test.describe.serial("CRUD de produto com falha", () => {
       
         await page.locator('input[name="stock"]').fill("10");
       
-        await page.selectOption('#select-product-category', { index: 1 });
+        await page.locator('[id="12"]').selectOption({ index: 2 });
+
+        //await page.selectOption('#select-product-category', { index: 1 });
 
         page.on('dialog', async dialog => {
 
@@ -125,7 +133,7 @@ test.describe.serial("CRUD de produto com falha", () => {
       
         await page.getByRole("link", { name: /Visualizar/i }).click();
 
-        await page.locator('a[href="/editProduct/10"]').click();
+        await page.locator('a[href="/editProduct/6"]').click();
 
         await page.locator('input[name="name"]').fill("Test Novo Produto editedo");
 
@@ -135,7 +143,8 @@ test.describe.serial("CRUD de produto com falha", () => {
 
         await page.locator('input[name="stock"]').fill("20");
 
-        await page.selectOption('#select-edit-product-category', { index: 2 });
+        await page.locator('[id="10"]').selectOption({ index: 2 });
+        
 
         page.on('dialog', async dialog => {
 
@@ -148,6 +157,6 @@ test.describe.serial("CRUD de produto com falha", () => {
       
         await page.getByRole("button", { name: /Salvar Alterações/i }).click();
 
-        await expect(page).toHaveURL("https://localhost/editProduct/10");
+        await expect(page).toHaveURL("https://localhost/editProduct/6");
         });
     });

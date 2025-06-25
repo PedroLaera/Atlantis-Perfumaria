@@ -1,9 +1,9 @@
 import { test, expect } from "@playwright/test";
 
-const NOME_USUARIO = "ivan vanco31";
-const EMAIL_USUARIO = "ivanvanc31@hotmail.com";
+const NOME_USUARIO = "ivan vanco34";
+const EMAIL_USUARIO = "ivanvanc34@hotmail.com";
 const SENHA_USUARIO = "12345678@";
-const CPF_USUARIO = "489.705.560-10";
+const CPF_USUARIO = "810.908.350-19";
 
 test.describe.serial("CRUD de Usuário", () => {
 
@@ -75,10 +75,10 @@ test.describe.serial("CRUD de Usuário com falha", () => {
     test("deve registrar um novo usuário com falha", async ({ page }) => {
       await page.goto("https://localhost/register");
   
-      await page.locator('input[name="name"]').fill(NOME_USUARIO);
-      await page.locator('input[name="email"]').fill(EMAIL_USUARIO);
-      await page.locator('input[name="password"]').fill(SENHA_USUARIO);
-      await page.locator('input[name="CPF"]').fill(CPF_USUARIO);
+      await page.locator('input[name="name"]').fill("pedro Laera");
+      await page.locator('input[name="email"]').fill("pedroLaele@hotmail.com");
+      await page.locator('input[name="password"]').fill("12345678@");
+      await page.locator('input[name="CPF"]').fill("07999629960");
       await page.locator('button[type="submit"]').click();
 
       await page.waitForTimeout(3000);
@@ -114,6 +114,10 @@ test("deve editar um  usuário com falha", async ({ page }) => {
             await page.getByRole("button", { name: /Editar/i }).click();
             await page.locator('input[name="name"]').fill("");
             await page.getByRole("button", { name: /Salvar Alterações/i }).click();
+
+            const errorMessage = page.getByText('O nome deve ter pelo menos 3 caracteres.');
+
+            await expect(errorMessage).toBeVisible();
     });
 });
 
