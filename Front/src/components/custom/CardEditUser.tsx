@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { api } from "../../services/api";
+import { toast } from "sonner";
 
 export default function CardEditUser() {
   const navigate = useNavigate();
@@ -45,28 +46,31 @@ export default function CardEditUser() {
 
     if (name === "password") {
       setPassword(value);
+      setErrors((prev) => ({ ...prev, password: undefined }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
+      setErrors((prev) => ({ ...prev, name: undefined }));
     }
-
-    setErrors((prev) => ({ ...prev, [name]: undefined }));
   };
 
   const updateUser = async () => {
     const validationErrors: { name?: string; password?: string } = {};
 
-    if (!formData.name.trim()) {
-      validationErrors.name = "O nome é obrigatório.";
-    } else if (formData.name.trim().length < 3) {
+    if (!formData.name.trim() || formData.name.trim().length < 3) {
       validationErrors.name = "O nome deve ter pelo menos 3 caracteres.";
     }
 
-    if (password.trim() && password.trim().length < 6) {
-      validationErrors.password = "A senha deve ter no mínimo 6 caracteres.";
+    const specialCharRegex = /[^a-zA-Z0-9]/;
+    if (password.trim()) {
+      if (password.length < 6 || !specialCharRegex.test(password)) {
+        validationErrors.password =
+          "A senha deve ter no mínimo 6 caracteres, e pelo menos 1 caractere especial.";
+      }
     }
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      toast.error("Preencha os campos obrigatórios corretamente.");
       return;
     }
 
@@ -85,13 +89,15 @@ export default function CardEditUser() {
         name: formData.name.trim(),
       };
 
-      if (password.trim() !== "") {
+      if (password.trim()) {
         payload.password = password;
       }
 
       await api.put(`/users/${id_user}`, payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
+
+      toast.success("Perfil atualizado com sucesso!");
 
       setTimeout(() => {
         navigate("/profile");
@@ -121,38 +127,44 @@ export default function CardEditUser() {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
+          {/* Campo Nome */}
           <label className="text-white">Nome:</label>
-          <Input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            className={`${errors.name ? "border-red-500" : ""}`}
-          />
+          <div className="relative">
+            <Input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className="text-white!"
+            />
+          </div>
+
+          {/* Campo Senha */}
+          <label className="text-white">Senha:</label>
+          <div className="relative">
+            <Input
+              type="password"
+              name="password"
+              value={password}
+              onChange={handleChange}
+              className="text-white!"
+            />
+          </div>
+          {errors.password && (
+            <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+          )}
           {errors.name && (
             <p className="text-red-500 text-sm mt-1">{errors.name}</p>
           )}
 
-          <label className="text-white">Senha: (Preencha para alterar)</label>
-          <Input
-            type="password"
-            name="password"
-            value={password}
-            onChange={handleChange}
-            placeholder="Deixe em branco para manter a senha"
-            className={`${errors.password ? "border-red-500" : ""}`}
-          />
-          {errors.password && (
-            <p className="text-red-500 text-sm mt-1">{errors.password}</p>
-          )}
-
+          {/* Botão */}
           <Button
+            id="1"
             onClick={updateUser}
             disabled={isSubmitting}
             className={`bg-blue-600! hover:bg-blue-700 text-white border border-white! px-5 py-1.5 rounded-full transition-all duration-500 ease-in-out transform active:scale-95 shadow-md hover:shadow-[0_0_12px_rgba(59,130,246,0.7)] ${
               isSubmitting ? "opacity-50 cursor-not-allowed" : ""
             }`}
-            id="1"
           >
             {isSubmitting ? "Salvando..." : "Salvar Alterações"}
           </Button>
